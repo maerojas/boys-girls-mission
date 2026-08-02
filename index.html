@@ -27,12 +27,12 @@
   .serif{font-family:var(--serif)}
   .hidden{display:none !important}
 
-  /* ---------- Buttons ---------- */
   .btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;border:1px solid var(--accent);
     background:transparent;color:var(--accent);border-radius:10px;padding:11px 18px;font-weight:600;font-size:14px;
     min-height:44px;transition:background .15s,color .15s,transform .05s;white-space:nowrap}
   .btn:hover{background:var(--accent);color:#fff}
   .btn:active{transform:translateY(1px)}
+  .btn[disabled]{opacity:.55;cursor:not-allowed}
   .btn-solid{background:var(--accent);color:#fff}
   .btn-solid:hover{background:#95492a}
   .btn-ghost{border-color:var(--line);color:var(--ink)}
@@ -41,7 +41,6 @@
   .btn-danger{border-color:#c98b7a;color:#a5502f}
   .btn-danger:hover{background:#a5502f;border-color:#a5502f;color:#fff}
 
-  /* ---------- Login ---------- */
   #login{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
   .login-card{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:18px;
     padding:40px 34px;box-shadow:var(--shadow);text-align:center}
@@ -55,11 +54,10 @@
   .login-card .btn{width:100%;margin-top:6px}
   .login-alt{margin-top:20px;color:var(--muted);font-size:14px}
   .login-alt b{color:var(--accent);cursor:pointer;font-weight:600}
-  .role-pick{display:flex;gap:10px;margin-top:14px}
-  .role-pick button{flex:1;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px;font-size:13px;color:var(--muted);min-height:44px}
-  .role-pick button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);font-weight:600}
+  .login-msg{margin-top:16px;font-size:13.5px;padding:10px 12px;border-radius:9px;display:none}
+  .login-msg.err{display:block;background:#fbeae5;color:#a5502f;border:1px solid #eecabd}
+  .login-msg.ok{display:block;background:#e9f1e6;color:#4a6636;border:1px solid #cfe0c4}
 
-  /* ---------- App shell ---------- */
   #app{display:none;min-height:100%}
   .shell{display:flex;min-height:100vh}
   .sidebar{width:var(--sidebar-w);flex:0 0 var(--sidebar-w);background:var(--panel);border-right:1px solid var(--line);
@@ -73,14 +71,15 @@
   .nav a.active{background:var(--active);color:var(--accent);font-weight:600}
   .nav a svg{width:19px;height:19px;flex:0 0 19px;stroke:currentColor;fill:none;stroke-width:1.7}
   .side-foot{border-top:1px solid var(--line-soft);padding-top:14px;margin-top:10px}
-  .side-foot .eyebrow{margin-bottom:10px;display:block}
-  .role-toggle{display:flex;background:var(--active);border-radius:10px;padding:4px}
-  .role-toggle button{flex:1;border:none;background:transparent;padding:8px;border-radius:7px;font-size:13px;color:var(--muted);min-height:40px;font-weight:500}
-  .role-toggle button.on{background:#fff;color:var(--accent);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.06)}
-  .side-login-link{display:block;margin-top:12px;font-size:13px;color:var(--muted);text-decoration:none}
+  .side-foot .u{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .side-foot .u .avatar{width:36px;height:36px;flex:0 0 36px}
+  .side-foot .u b{font-size:14px;display:block;line-height:1.2}
+  .side-foot .u span{font-size:12px;color:var(--muted)}
+  .side-login-link{display:block;font-size:13px;color:var(--muted);text-decoration:none;cursor:pointer}
   .side-login-link:hover{color:var(--accent)}
+  .rolechip{display:inline-block;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+    padding:2px 8px;border-radius:20px;background:var(--accent-soft);color:var(--accent);margin-top:3px}
 
-  /* ---------- Main ---------- */
   .main{flex:1;min-width:0;display:flex;flex-direction:column}
   .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 28px;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:40}
   .topbar .tt .eyebrow{display:block}
@@ -89,12 +88,11 @@
   .topbar .who .name{text-align:right;line-height:1.25}
   .topbar .who .name b{display:block;font-size:14px}
   .topbar .who .name span{font-size:12px;color:var(--muted)}
-  .avatar{width:38px;height:38px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:600;flex:0 0 38px}
+  .avatar{width:38px;height:38px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:600;flex:0 0 38px;text-transform:uppercase}
   .hamb{display:none;border:1px solid var(--line);background:#fff;border-radius:10px;width:44px;height:44px;align-items:center;justify-content:center}
   .hamb svg{width:20px;height:20px;stroke:var(--ink);stroke-width:1.9;fill:none}
   .content{padding:30px 28px 60px;max-width:1180px;width:100%}
 
-  /* ---------- Generic bits ---------- */
   .page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
   .page-head h1{font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:-.01em}
   .page-head p{color:var(--muted);margin-top:3px}
@@ -110,10 +108,9 @@
   .tile h3{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:6px}
   .tile p{color:var(--muted);font-size:14px}
 
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
   .empty{color:var(--muted);text-align:center;padding:50px 20px;border:1px dashed var(--line);border-radius:14px;background:var(--panel)}
+  .loading{color:var(--muted);text-align:center;padding:40px}
 
-  /* Calendar */
   .cal-nav{display:flex;align-items:center;gap:14px;margin-bottom:16px}
   .cal-nav button{width:40px;height:40px;border:1px solid var(--line);background:#fff;border-radius:9px;font-size:17px;color:var(--ink)}
   .cal-nav button:hover{background:var(--active)}
@@ -130,7 +127,6 @@
   .ev.g{background:#eef1e6;color:#5a6636;border-left-color:#8a9a52}
   .ev.b{background:#e9eef2;color:#3f5666;border-left-color:#6f93a8}
 
-  /* Resource / video list */
   .list{display:flex;flex-direction:column;gap:12px}
   .row{display:flex;align-items:center;gap:16px;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow)}
   .row .ico{width:44px;height:44px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:0 0 44px}
@@ -152,7 +148,6 @@
   .vbody span{color:var(--muted);font-size:13px}
   .vbody .acts{margin-top:12px;display:flex;gap:8px}
 
-  /* Verses */
   .verse-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
   .verse{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);display:flex;flex-direction:column}
   .verse .art{padding:34px 22px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;min-height:210px}
@@ -166,12 +161,8 @@
   .v-cream{background:#efe7d7;color:#4a4335}
   .v-sage{background:#e4e9db;color:#414a34}
   .v-sky{background:#dfe7ec;color:#3a4c58}
-  .v-plum{background:#e7ddE4;color:#4f3f4c}
+  .v-plum{background:#e7dde4;color:#4f3f4c}
 
-  /* Comments */
-  .tabs{display:flex;gap:6px;background:var(--active);padding:5px;border-radius:11px;margin-bottom:22px;max-width:360px}
-  .tabs button{flex:1;border:none;background:transparent;padding:10px;border-radius:8px;font-size:14px;color:var(--muted);min-height:42px;font-weight:500}
-  .tabs button.on{background:#fff;color:var(--accent);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.06)}
   .composer{display:flex;gap:12px;margin-bottom:22px}
   .composer textarea{flex:1;border:1px solid var(--line);border-radius:12px;padding:13px 15px;resize:vertical;min-height:52px;background:#fff}
   .composer textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
@@ -182,31 +173,22 @@
   .post .ph span{font-size:12px;color:var(--muted)}
   .post .body{font-size:14.5px;white-space:pre-wrap}
   .post .del{margin-left:auto}
-  .msg-list{display:flex;flex-direction:column;gap:10px}
-  .msg{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px}
-  .msg .avatar{width:34px;height:34px;flex:0 0 34px;font-size:13px}
-  .msg .mb b{font-size:14px}
-  .msg .mb p{font-size:14px;color:#4a453c;margin-top:2px}
-  .msg .mb span{font-size:12px;color:var(--muted)}
 
-  /* Modal */
   .overlay{position:fixed;inset:0;background:rgba(38,34,28,.5);backdrop-filter:blur(2px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
   .overlay.show{display:flex}
   .modal{background:var(--panel);border-radius:18px;width:100%;max-width:460px;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,.25);max-height:90vh;overflow:auto}
   .modal h3{font-family:var(--serif);font-size:22px;font-weight:600;margin-bottom:18px}
   .modal .field textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;min-height:80px;resize:vertical;background:#fff}
-  .modal .field select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;min-height:46px}
+  .modal .field input,.modal .field select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;min-height:46px}
   .modal-acts{display:flex;gap:10px;margin-top:22px}
   .modal-acts .btn{flex:1}
 
-  /* Sidebar backdrop (mobile) */
   .backdrop{position:fixed;inset:0;background:rgba(38,34,28,.45);z-index:55;display:none}
   .backdrop.show{display:block}
-
   .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;z-index:200;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+  #boot{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:300;color:var(--muted)}
 
-  /* ---------- Responsive ---------- */
   @media(max-width:900px){
     .sidebar{position:fixed;left:0;top:0;transform:translateX(-100%);transition:transform .25s ease;box-shadow:0 0 40px rgba(0,0,0,.15)}
     .sidebar.open{transform:translateX(0)}
@@ -241,14 +223,20 @@
 </head>
 <body>
 
+<div id="boot">Cargando…</div>
+
 <!-- ============ LOGIN ============ -->
-<div id="login">
+<div id="login" style="display:none">
   <div class="login-card">
     <img class="login-logo" alt="Boys & Girls in Mission" src="public/bgm-logo.jpg" />
     <div class="eyebrow">Escuela Bíblica</div>
     <h1 class="serif">Boys &amp; Girls in Mission</h1>
-    <div class="sub">Equipo de maestros</div>
-    <form id="loginForm">
+    <div class="sub" id="authSub">Equipo de maestros</div>
+    <form id="authForm">
+      <div class="field" id="nameField" style="display:none">
+        <label>Nombre y apellido</label>
+        <input type="text" id="liName" placeholder="Tu nombre" autocomplete="name" />
+      </div>
       <div class="field">
         <label>Email</label>
         <input type="email" id="liEmail" placeholder="tu@correo.com" autocomplete="email" required />
@@ -257,13 +245,10 @@
         <label>Contraseña</label>
         <input type="password" id="liPass" placeholder="••••••••" autocomplete="current-password" required />
       </div>
-      <div class="role-pick" id="rolePick">
-        <button type="button" data-role="admin" class="on">Coordinación</button>
-        <button type="button" data-role="maestro">Maestro/a</button>
-      </div>
-      <button class="btn btn-solid" type="submit">Ingresar</button>
+      <button class="btn btn-solid" type="submit" id="authBtn">Ingresar</button>
     </form>
-    <div class="login-alt">¿No tenés cuenta? <b id="goReg">Registrate</b></div>
+    <div class="login-msg" id="authMsg"></div>
+    <div class="login-alt" id="authToggle">¿No tenés cuenta? <b>Registrate</b></div>
   </div>
 </div>
 
@@ -272,9 +257,7 @@
   <div class="backdrop" id="backdrop"></div>
   <div class="shell">
     <aside class="sidebar" id="sidebar">
-      <div class="side-logo">
-        <img alt="Boys & Girls in Mission" src="public/bgm-logo.jpg" />
-      </div>
+      <div class="side-logo"><img alt="Boys & Girls in Mission" src="public/bgm-logo.jpg" /></div>
       <nav class="nav" id="nav">
         <a href="#inicio" data-v="inicio"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Inicio</a>
         <a href="#calendario" data-v="calendario"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>Calendario</a>
@@ -284,12 +267,11 @@
         <a href="#comentarios" data-v="comentarios"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Comentarios</a>
       </nav>
       <div class="side-foot">
-        <span class="eyebrow">Sesión</span>
-        <div class="role-toggle" id="roleToggle">
-          <button data-role="admin">Coordinación</button>
-          <button data-role="maestro">Maestro/a</button>
+        <div class="u">
+          <div class="avatar" id="sideAvatar">?</div>
+          <div><b id="sideName">—</b><span class="rolechip" id="sideRole">maestro</span></div>
         </div>
-        <a class="side-login-link" id="logout" href="#">Cerrar sesión →</a>
+        <a class="side-login-link" id="logout">Cerrar sesión →</a>
       </div>
     </aside>
 
@@ -303,8 +285,8 @@
           </div>
         </div>
         <div class="who">
-          <div class="name"><b>Coordinación BGM</b><span id="roleLabel">Administrador</span></div>
-          <div class="avatar" id="avatar">C</div>
+          <div class="name"><b id="topName">—</b><span id="topRole">—</span></div>
+          <div class="avatar" id="topAvatar">?</div>
         </div>
       </div>
       <div class="content" id="content"></div>
@@ -312,165 +294,139 @@
   </div>
 </div>
 
-<!-- Modal + toast -->
 <div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* ============================================================
-   Boys & Girls in Mission — app de escuela bíblica
-   Datos persistidos en localStorage (por dispositivo/navegador).
-   ============================================================ */
 (function(){
   "use strict";
-  var LS = window.localStorage;
-  var K = {
-    auth:'bgm_auth', role:'bgm_role',
-    events:'bgm_events', resources:'bgm_resources',
-    videos:'bgm_videos', verses:'bgm_verses',
-    posts:'bgm_posts', msgs:'bgm_msgs'
-  };
+  var SUPABASE_URL='https://eywcwxqlmwfaajuktejj.supabase.co';
+  var SUPABASE_KEY='sb_publishable_2FHlF3ExfS_af3guJWK3gw_GRYotm9Y';
+  var sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
   var MONTHS=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   var WD=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  var THEMES=[['v-dark','Oscuro'],['v-rust','Tierra'],['v-cream','Crema'],['v-sage','Verde'],['v-sky','Azul'],['v-plum','Lila']];
 
-  function get(k,def){ try{ var v=LS.getItem(k); return v==null?def:JSON.parse(v);}catch(e){return def;} }
-  function set(k,v){ try{ LS.setItem(k,JSON.stringify(v)); }catch(e){} }
-  function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
-  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
-  function fmtDate(d){ var x=new Date(d); return x.getDate()+' '+MONTHS[x.getMonth()].slice(0,3)+' '+x.getFullYear(); }
-  function ago(ts){ var s=(Date.now()-ts)/1000; if(s<60)return'hace instantes'; if(s<3600)return'hace '+Math.floor(s/60)+' min'; if(s<86400)return'hace '+Math.floor(s/3600)+' h'; return'hace '+Math.floor(s/86400)+' días'; }
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function fmtDate(d){var x=new Date(d);return x.getDate()+' '+MONTHS[x.getMonth()].slice(0,3)+' '+x.getFullYear();}
+  function ago(ts){var s=(Date.now()-new Date(ts).getTime())/1000;if(s<60)return'hace instantes';if(s<3600)return'hace '+Math.floor(s/60)+' min';if(s<86400)return'hace '+Math.floor(s/3600)+' h';return'hace '+Math.floor(s/86400)+' días';}
+  function ytId(url){var m=String(url||'').match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/);return m?m[1]:'';}
+  function colorClass(cat){var c=String(cat||'').toLowerCase();if(c==='g'||c.indexOf('verde')>-1||c.indexOf('prep')>-1)return'g';if(c==='b'||c.indexOf('azul')>-1||c.indexOf('ensayo')>-1)return'b';return'';}
 
-  /* ---------- Seed data (solo la primera vez) ---------- */
-  function seed(){
-    var y=2026, m=7; // agosto 2026 (0-index)
-    if(get(K.events,null)===null){
-      var ev=[];
-      // clases dominicales
-      [2,9,16,23,30].forEach(function(d){ ev.push({id:uid(),date:new Date(y,m,d).toISOString(),title:'Clase dominical',type:'a'}); });
-      ev.push({id:uid(),date:new Date(y,m,5).toISOString(),title:'Reunión de equipo',type:'a'});
-      ev.push({id:uid(),date:new Date(y,m,8).toISOString(),title:'Preparación de materiales',type:'g'});
-      ev.push({id:uid(),date:new Date(y,m,13).toISOString(),title:'Ensayo de alabanza',type:'b'});
-      ev.push({id:uid(),date:new Date(y,m,19).toISOString(),title:'Reunión general',type:'a'});
-      ev.push({id:uid(),date:new Date(y,m,27).toISOString(),title:'Preparación — decoración',type:'g'});
-      set(K.events,ev);
-    }
-    if(get(K.resources,null)===null){
-      set(K.resources,[
-        {id:uid(),title:'Guía de la clase — Agosto',desc:'PDF · 12 páginas · Plan de lecciones',url:''},
-        {id:uid(),title:'Hoja para colorear — El buen pastor',desc:'PDF · Para imprimir',url:''},
-        {id:uid(),title:'Manual del maestro 2026',desc:'PDF · 40 páginas',url:''},
-        {id:uid(),title:'Actividades para los más chicos',desc:'PDF · Juegos y dinámicas',url:''}
-      ]);
-    }
-    if(get(K.videos,null)===null){
-      set(K.videos,[
-        {id:uid(),title:'Manualidad: el arca de Noé',desc:'Idea creativa · 6 min',url:'https://www.youtube.com/watch?v=', yt:''},
-        {id:uid(),title:'Canción con gestos — Yo tengo gozo',desc:'Alabanza infantil · 3 min',url:'', yt:''},
-        {id:uid(),title:'Dinámica rompehielos para el aula',desc:'Actividad · 4 min',url:'', yt:''}
-      ]);
-    }
-    if(get(K.verses,null)===null){
-      set(K.verses,[
-        {id:uid(),ref:'Salmos 119:105',txt:'Lámpara es a mis pies tu palabra, y lumbrera a mi camino.',theme:'v-dark'},
-        {id:uid(),ref:'Filipenses 4:13',txt:'Todo lo puedo en Cristo que me fortalece.',theme:'v-rust'},
-        {id:uid(),ref:'Proverbios 22:6',txt:'Instruye al niño en su camino, y aun cuando fuere viejo no se apartará de él.',theme:'v-cream'},
-        {id:uid(),ref:'Josué 1:9',txt:'Esfuérzate y sé valiente; no temas ni desmayes.',theme:'v-sage'}
-      ]);
-    }
-    if(get(K.posts,null)===null){
-      set(K.posts,[
-        {id:uid(),author:'Coordinación BGM',body:'¡Gracias equipo por el domingo! Fue una mañana hermosa. Recuerden traer los materiales para la próxima clase.',ts:Date.now()-3600*1000*20},
-        {id:uid(),author:'Ana (Maestra)',body:'Los chicos amaron la manualidad del arca 🐘 ¿Alguien tiene más témperas para prestar?',ts:Date.now()-3600*1000*6}
-      ]);
-    }
-    if(get(K.msgs,null)===null){
-      set(K.msgs,[
-        {id:uid(),author:'Coordinación BGM',body:'Bienvenidos al canal del equipo. Cualquier duda, escriban por acá.',ts:Date.now()-3600*1000*48}
-      ]);
-    }
-  }
-
-  /* ---------- Auth ---------- */
-  function isAuthed(){ return get(K.auth,false)===true; }
-  function role(){ return get(K.role,'admin'); }
-  function isAdmin(){ return role()==='admin'; }
-
+  var boot=document.getElementById('boot');
   var loginEl=document.getElementById('login');
   var appEl=document.getElementById('app');
-  var pendingRole='admin';
+  var C=document.getElementById('content');
 
-  document.querySelectorAll('#rolePick button').forEach(function(b){
-    b.addEventListener('click',function(){
-      document.querySelectorAll('#rolePick button').forEach(function(x){x.classList.remove('on');});
-      b.classList.add('on'); pendingRole=b.getAttribute('data-role');
-    });
-  });
-  document.getElementById('loginForm').addEventListener('submit',function(e){
-    e.preventDefault();
-    set(K.auth,true); set(K.role,pendingRole);
-    enterApp();
-  });
-  document.getElementById('goReg').addEventListener('click',function(){
-    set(K.auth,true); set(K.role,pendingRole); enterApp();
-  });
-  document.getElementById('logout').addEventListener('click',function(e){
-    e.preventDefault(); set(K.auth,false); location.hash=''; showLogin();
-  });
+  var ME={id:null,email:null,name:'',role:'maestro'};
+  var PROFILES={}; // id -> full_name
+  function isAdmin(){return ME.role==='admin';}
 
-  function showLogin(){ appEl.style.display='none'; loginEl.style.display='flex'; }
-  function enterApp(){
-    loginEl.style.display='none'; appEl.style.display='block';
-    applyRoleUI(); route();
-  }
+  /* ---------- Toast + Modal ---------- */
+  var toastEl=document.getElementById('toast'),toastT;
+  function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove('show');},2000);}
+  var overlay=document.getElementById('overlay'),modal=document.getElementById('modal');
+  function openModal(h){modal.innerHTML=h;overlay.classList.add('show');}
+  function closeModal(){overlay.classList.remove('show');modal.innerHTML='';}
+  overlay.addEventListener('click',function(e){if(e.target===overlay)closeModal();});
+  window.BGM={closeModal:closeModal};
 
-  /* ---------- Role UI ---------- */
-  function applyRoleUI(){
-    var admin=isAdmin();
-    document.getElementById('roleLabel').textContent=admin?'Administrador':'Maestro/a';
-    document.getElementById('avatar').textContent=admin?'C':'M';
-    document.querySelector('.who .name b').textContent=admin?'Coordinación BGM':'Equipo de maestros';
-    document.querySelectorAll('#roleToggle button').forEach(function(b){
-      b.classList.toggle('on', b.getAttribute('data-role')===role());
-    });
-  }
-  document.querySelectorAll('#roleToggle button').forEach(function(b){
-    b.addEventListener('click',function(){
-      set(K.role,b.getAttribute('data-role')); applyRoleUI(); route();
-    });
-  });
-
-  /* ---------- Sidebar (mobile) ---------- */
-  var sidebar=document.getElementById('sidebar'), backdrop=document.getElementById('backdrop');
-  function openSide(){ sidebar.classList.add('open'); backdrop.classList.add('show'); }
-  function closeSide(){ sidebar.classList.remove('open'); backdrop.classList.remove('show'); }
+  /* ---------- Sidebar mobile ---------- */
+  var sidebar=document.getElementById('sidebar'),backdrop=document.getElementById('backdrop');
+  function openSide(){sidebar.classList.add('open');backdrop.classList.add('show');}
+  function closeSide(){sidebar.classList.remove('open');backdrop.classList.remove('show');}
   document.getElementById('hamb').addEventListener('click',openSide);
   backdrop.addEventListener('click',closeSide);
 
-  /* ---------- Toast ---------- */
-  var toastEl=document.getElementById('toast'), toastT;
-  function toast(msg){ toastEl.textContent=msg; toastEl.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(function(){toastEl.classList.remove('show');},1800); }
+  /* ---------- Auth UI ---------- */
+  var mode='login';
+  var nameField=document.getElementById('nameField');
+  var authBtn=document.getElementById('authBtn');
+  var authMsg=document.getElementById('authMsg');
+  var authToggle=document.getElementById('authToggle');
+  var authSub=document.getElementById('authSub');
+  function setMode(m){
+    mode=m;
+    if(m==='signup'){nameField.style.display='';authBtn.textContent='Crear cuenta';authSub.textContent='Creá tu cuenta de maestro/a';
+      authToggle.innerHTML='¿Ya tenés cuenta? <b>Ingresá</b>';document.getElementById('liPass').setAttribute('autocomplete','new-password');}
+    else{nameField.style.display='none';authBtn.textContent='Ingresar';authSub.textContent='Equipo de maestros';
+      authToggle.innerHTML='¿No tenés cuenta? <b>Registrate</b>';document.getElementById('liPass').setAttribute('autocomplete','current-password');}
+    authMsg.className='login-msg';authMsg.textContent='';
+  }
+  authToggle.addEventListener('click',function(){setMode(mode==='login'?'signup':'login');});
+  function showMsg(t,ok){authMsg.className='login-msg '+(ok?'ok':'err');authMsg.textContent=t;}
 
-  /* ---------- Modal ---------- */
-  var overlay=document.getElementById('overlay'), modal=document.getElementById('modal');
-  function openModal(html){ modal.innerHTML=html; overlay.classList.add('show'); }
-  function closeModal(){ overlay.classList.remove('show'); modal.innerHTML=''; }
-  overlay.addEventListener('click',function(e){ if(e.target===overlay) closeModal(); });
-  window.BGM={closeModal:closeModal}; // for inline handlers
+  document.getElementById('authForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=document.getElementById('liEmail').value.trim();
+    var pass=document.getElementById('liPass').value;
+    var name=document.getElementById('liName').value.trim();
+    authBtn.disabled=true;authBtn.textContent='...';
+    if(mode==='signup'){
+      sb.auth.signUp({email:email,password:pass,options:{data:{full_name:name||email.split('@')[0]}}}).then(function(r){
+        authBtn.disabled=false;setMode('signup');
+        if(r.error){showMsg(r.error.message,false);return;}
+        if(r.data.session){enterApp();}
+        else{showMsg('¡Cuenta creada! Revisá tu email para confirmarla y luego ingresá.',true);setMode('login');}
+      });
+    }else{
+      sb.auth.signInWithPassword({email:email,password:pass}).then(function(r){
+        authBtn.disabled=false;authBtn.textContent='Ingresar';
+        if(r.error){showMsg('Email o contraseña incorrectos.',false);return;}
+        enterApp();
+      });
+    }
+  });
+  document.getElementById('logout').addEventListener('click',function(e){
+    e.preventDefault();sb.auth.signOut().then(function(){location.hash='';showLogin();});
+  });
+
+  function showLogin(){boot.style.display='none';appEl.style.display='none';loginEl.style.display='flex';setMode('login');}
+
+  async function loadMe(){
+    var u=(await sb.auth.getUser()).data.user;
+    if(!u)return false;
+    ME.id=u.id;ME.email=u.email;
+    var pr=await sb.from('profiles').select('full_name,role').eq('id',u.id).maybeSingle();
+    if(pr.data){ME.name=pr.data.full_name||u.email;ME.role=pr.data.role||'maestro';}
+    else{ME.name=(u.user_metadata&&u.user_metadata.full_name)||u.email;ME.role='maestro';}
+    return true;
+  }
+  async function loadProfiles(){
+    var r=await sb.from('profiles').select('id,full_name');
+    PROFILES={};(r.data||[]).forEach(function(p){PROFILES[p.id]=p.full_name;});
+  }
+
+  async function enterApp(){
+    boot.style.display='flex';boot.textContent='Cargando…';
+    var ok=await loadMe();
+    if(!ok){showLogin();return;}
+    await loadProfiles();
+    var initial=ME.name?ME.name.charAt(0):'?';
+    document.getElementById('sideName').textContent=ME.name;
+    document.getElementById('sideRole').textContent=isAdmin()?'Coordinación':'Maestro/a';
+    document.getElementById('sideAvatar').textContent=initial;
+    document.getElementById('topName').textContent=ME.name;
+    document.getElementById('topRole').textContent=isAdmin()?'Administrador':'Maestro/a';
+    document.getElementById('topAvatar').textContent=initial;
+    boot.style.display='none';loginEl.style.display='none';appEl.style.display='block';
+    route();
+  }
 
   /* ---------- Router ---------- */
   var VIEWS={inicio:'Inicio',calendario:'Calendario',recursos:'Recursos',videos:'Videos',versiculos:'Versículos',comentarios:'Comentarios'};
-  function currentView(){ var h=(location.hash||'#inicio').replace('#',''); return VIEWS[h]?h:'inicio'; }
+  function currentView(){var h=(location.hash||'#inicio').replace('#','');return VIEWS[h]?h:'inicio';}
   function route(){
     var v=currentView();
     document.getElementById('pageTitle').textContent=VIEWS[v];
-    document.querySelectorAll('#nav a').forEach(function(a){ a.classList.toggle('active',a.getAttribute('data-v')===v); });
-    closeSide();
+    document.querySelectorAll('#nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-v')===v);});
+    closeSide();window.scrollTo(0,0);
     ({inicio:renderInicio,calendario:renderCalendario,recursos:renderRecursos,videos:renderVideos,versiculos:renderVersiculos,comentarios:renderComentarios}[v])();
-    document.getElementById('content').scrollTop=0; window.scrollTo(0,0);
   }
   window.addEventListener('hashchange',route);
-
-  var C=document.getElementById('content');
+  function loading(){C.innerHTML='<div class="loading">Cargando…</div>';}
 
   /* ---------- INICIO ---------- */
   function renderInicio(){
@@ -481,94 +437,79 @@
       ['Para el aula','Versículos','Láminas listas para imprimir.','versiculos'],
       ['Equipo','Comentarios','El foro y los mensajes del equipo.','comentarios']
     ];
-    C.innerHTML=''+
-      '<div class="hero"><span class="eyebrow">Escuela Bíblica</span>'+
-      '<h1 class="serif">Buen día, equipo</h1>'+
+    var hi=ME.name?(', '+ME.name.split(' ')[0]):'';
+    C.innerHTML='<div class="hero"><span class="eyebrow">Escuela Bíblica</span>'+
+      '<h1 class="serif">Buen día'+esc(hi)+'</h1>'+
       '<p>Todo lo que necesitás para organizar la escuela bíblica, en un solo lugar.</p></div>'+
-      '<div class="grid">'+tiles.map(function(t){
-        return '<button class="tile" data-go="'+t[3]+'"><span class="eyebrow">'+t[0]+'</span>'+
-          '<h3 class="serif">'+t[1]+'</h3><p>'+t[2]+'</p></button>';
-      }).join('')+'</div>';
-    C.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click',function(){ location.hash='#'+b.getAttribute('data-go'); }); });
+      '<div class="grid">'+tiles.map(function(t){return '<button class="tile" data-go="'+t[3]+'"><span class="eyebrow">'+t[0]+'</span><h3 class="serif">'+t[1]+'</h3><p>'+t[2]+'</p></button>';}).join('')+'</div>';
+    C.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){location.hash='#'+b.getAttribute('data-go');});});
   }
 
   /* ---------- CALENDARIO ---------- */
-  var calY=2026, calM=7;
-  function renderCalendario(){
-    var admin=isAdmin();
+  var calY=new Date().getFullYear(),calM=new Date().getMonth();
+  async function renderCalendario(){
+    loading();var admin=isAdmin();
+    var start=new Date(calY,calM,1).toISOString().slice(0,10);
+    var end=new Date(calY,calM+1,1).toISOString().slice(0,10);
+    var r=await sb.from('events').select('*').gte('event_date',start).lt('event_date',end);
+    var events=r.data||[];
     var head='<div class="page-head"><div><h1 class="serif">Calendario</h1><p>Actividades y recordatorios del equipo.</p></div>'+
       (admin?'<button class="btn btn-solid" id="addEv">+ Nueva actividad</button>':'')+'</div>';
-    var events=get(K.events,[]);
-    var first=new Date(calY,calM,1), start=first.getDay(), days=new Date(calY,calM+1,0).getDate();
-    var today=new Date(); var isThisMonth=(today.getFullYear()===calY&&today.getMonth()===calM);
-    var cells=[]; for(var i=0;i<start;i++)cells.push(null);
-    for(var d=1;d<=days;d++)cells.push(d);
-    while(cells.length%7!==0)cells.push(null);
+    var first=new Date(calY,calM,1).getDay(),days=new Date(calY,calM+1,0).getDate();
+    var today=new Date(),isThis=(today.getFullYear()===calY&&today.getMonth()===calM);
+    var cells=[];for(var i=0;i<first;i++)cells.push(null);for(var d=1;d<=days;d++)cells.push(d);while(cells.length%7)cells.push(null);
     var rows='';
-    for(var r=0;r<cells.length;r+=7){
-      rows+='<tr>';
-      for(var c=0;c<7;c++){
-        var day=cells[r+c];
-        if(day===null){ rows+='<td class="off"></td>'; continue; }
-        var dayEv=events.filter(function(e){var x=new Date(e.date);return x.getFullYear()===calY&&x.getMonth()===calM&&x.getDate()===day;});
-        var evHtml=dayEv.map(function(e){return '<div class="ev '+(e.type==='g'?'g':e.type==='b'?'b':'')+'" data-ev="'+e.id+'" title="'+esc(e.title)+'">'+esc(e.title)+'</div>';}).join('');
-        rows+='<td class="'+(isThisMonth&&day===today.getDate()?'today':'')+'"><span class="dnum">'+day+'</span>'+evHtml+'</td>';
-      }
-      rows+='</tr>';
-    }
-    C.innerHTML=head+
-      '<div class="cal-nav"><button id="pm">‹</button><div class="m serif">'+MONTHS[calM]+' '+calY+'</div><button id="nm">›</button></div>'+
+    for(var rr=0;rr<cells.length;rr+=7){rows+='<tr>';
+      for(var c=0;c<7;c++){var day=cells[rr+c];
+        if(day===null){rows+='<td class="off"></td>';continue;}
+        var dayEv=events.filter(function(e){return parseInt(e.event_date.slice(8,10),10)===day;});
+        var evH=dayEv.map(function(e){return '<div class="ev '+colorClass(e.category)+'" data-ev="'+e.id+'" title="'+esc(e.title)+'">'+esc(e.title)+'</div>';}).join('');
+        rows+='<td class="'+(isThis&&day===today.getDate()?'today':'')+'"><span class="dnum">'+day+'</span>'+evH+'</td>';
+      }rows+='</tr>';}
+    C.innerHTML=head+'<div class="cal-nav"><button id="pm">‹</button><div class="m serif">'+MONTHS[calM]+' '+calY+'</div><button id="nm">›</button></div>'+
       '<div class="cal-wrap"><table class="cal"><thead><tr>'+WD.map(function(w){return '<th>'+w.toUpperCase()+'</th>';}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>';
     document.getElementById('pm').onclick=function(){calM--;if(calM<0){calM=11;calY--;}renderCalendario();};
     document.getElementById('nm').onclick=function(){calM++;if(calM>11){calM=0;calY++;}renderCalendario();};
-    if(admin){ document.getElementById('addEv').onclick=function(){ evModal(); }; }
-    C.querySelectorAll('[data-ev]').forEach(function(el){ el.onclick=function(){ evModal(el.getAttribute('data-ev')); }; });
+    if(admin)document.getElementById('addEv').onclick=function(){evModal(null,events);};
+    C.querySelectorAll('[data-ev]').forEach(function(el){el.onclick=function(){var e=events.filter(function(x){return x.id===el.getAttribute('data-ev');})[0];evModal(e,events);};});
   }
-  function evModal(id){
-    var events=get(K.events,[]); var ev=id?events.filter(function(e){return e.id===id;})[0]:null;
+  function evModal(ev,events){
     var admin=isAdmin();
-    if(ev && !admin){
-      openModal('<h3 class="serif">'+esc(ev.title)+'</h3><p style="color:var(--muted)">'+fmtDate(ev.date)+'</p>'+
-        '<div class="modal-acts"><button class="btn btn-ghost" onclick="BGM.closeModal()">Cerrar</button></div>');
-      return;
-    }
-    var dateVal=ev?ev.date.slice(0,10):new Date(calY,calM,Math.min(new Date().getDate(),28)).toISOString().slice(0,10);
+    if(ev&&!admin){openModal('<h3 class="serif">'+esc(ev.title)+'</h3><p style="color:var(--muted)">'+fmtDate(ev.event_date)+(ev.description?'<br>'+esc(ev.description):'')+'</p><div class="modal-acts"><button class="btn btn-ghost" onclick="BGM.closeModal()">Cerrar</button></div>');return;}
+    var dv=ev?ev.event_date.slice(0,10):new Date(calY,calM,Math.min(new Date().getDate(),28)).toISOString().slice(0,10);
     openModal('<h3 class="serif">'+(ev?'Editar actividad':'Nueva actividad')+'</h3>'+
       '<div class="field"><label>Título</label><input id="evTitle" value="'+(ev?esc(ev.title):'')+'" placeholder="Ej: Clase dominical"/></div>'+
-      '<div class="field"><label>Fecha</label><input type="date" id="evDate" value="'+dateVal+'"/></div>'+
+      '<div class="field"><label>Fecha</label><input type="date" id="evDate" value="'+dv+'"/></div>'+
       '<div class="field"><label>Color</label><select id="evType"><option value="a">Terracota</option><option value="g">Verde</option><option value="b">Azul</option></select></div>'+
-      '<div class="modal-acts">'+(ev?'<button class="btn btn-danger" id="evDel">Borrar</button>':'')+
-      '<button class="btn btn-ghost" onclick="BGM.closeModal()">Cancelar</button>'+
-      '<button class="btn btn-solid" id="evSave">Guardar</button></div>');
-    if(ev) document.getElementById('evType').value=ev.type||'a';
-    document.getElementById('evSave').onclick=function(){
-      var t=document.getElementById('evTitle').value.trim(); if(!t){toast('Escribí un título');return;}
-      var dv=document.getElementById('evDate').value; var ty=document.getElementById('evType').value;
-      var arr=get(K.events,[]);
-      if(ev){ arr=arr.map(function(x){return x.id===ev.id?{id:x.id,title:t,date:new Date(dv+'T12:00').toISOString(),type:ty}:x;}); }
-      else{ arr.push({id:uid(),title:t,date:new Date(dv+'T12:00').toISOString(),type:ty}); }
-      set(K.events,arr); closeModal(); renderCalendario(); toast('Actividad guardada');
+      '<div class="modal-acts">'+(ev?'<button class="btn btn-danger" id="evDel">Borrar</button>':'')+'<button class="btn btn-ghost" onclick="BGM.closeModal()">Cancelar</button><button class="btn btn-solid" id="evSave">Guardar</button></div>');
+    if(ev)document.getElementById('evType').value=colorClass(ev.category)||'a';
+    document.getElementById('evSave').onclick=async function(){
+      var t=document.getElementById('evTitle').value.trim();if(!t){toast('Escribí un título');return;}
+      var payload={title:t,event_date:document.getElementById('evDate').value,category:document.getElementById('evType').value,created_by:ME.id};
+      var res=ev?await sb.from('events').update(payload).eq('id',ev.id):await sb.from('events').insert(payload);
+      if(res.error){toast('Error: '+res.error.message);return;}
+      closeModal();renderCalendario();toast('Actividad guardada');
     };
-    if(ev) document.getElementById('evDel').onclick=function(){ set(K.events,get(K.events,[]).filter(function(x){return x.id!==ev.id;})); closeModal(); renderCalendario(); toast('Actividad borrada'); };
+    if(ev)document.getElementById('evDel').onclick=async function(){var res=await sb.from('events').delete().eq('id',ev.id);if(res.error){toast('Error: '+res.error.message);return;}closeModal();renderCalendario();toast('Actividad borrada');};
   }
 
   /* ---------- RECURSOS ---------- */
-  function renderRecursos(){
-    var admin=isAdmin(); var items=get(K.resources,[]);
+  async function renderRecursos(){
+    loading();var admin=isAdmin();
+    var r=await sb.from('resources').select('*').order('created_at',{ascending:false});
+    var items=r.data||[];
     var head='<div class="page-head"><div><h1 class="serif">Recursos</h1><p>Material en PDF para descargar.</p></div>'+
       (admin?'<button class="btn btn-solid" id="addR">+ Nuevo recurso</button>':'')+'</div>';
-    var body = items.length? '<div class="list">'+items.map(function(r){
+    var body=items.length?'<div class="list">'+items.map(function(x){
+      var link=(x.storage_path&&/^https?:\/\//.test(x.storage_path))?x.storage_path:'';
       return '<div class="row"><div class="ico"><svg viewBox="0 0 24 24"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/></svg></div>'+
-        '<div class="meta"><b>'+esc(r.title)+'</b><span>'+esc(r.desc||'PDF')+'</span></div>'+
-        '<div class="acts">'+
-          (r.url?'<a class="btn btn-ghost btn-sm" href="'+esc(r.url)+'" target="_blank" rel="noopener">Abrir</a>':'<button class="btn btn-ghost btn-sm" data-dl="'+r.id+'">Descargar</button>')+
-          (admin?'<button class="btn btn-danger btn-sm" data-del="'+r.id+'">Borrar</button>':'')+
-        '</div></div>';
-    }).join('')+'</div>' : '<div class="empty">Todavía no hay recursos cargados.</div>';
+        '<div class="meta"><b>'+esc(x.title)+'</b><span>'+esc(x.description||x.category||'PDF')+'</span></div>'+
+        '<div class="acts">'+(link?'<a class="btn btn-ghost btn-sm" href="'+esc(link)+'" target="_blank" rel="noopener">Abrir</a>':'')+
+        (admin?'<button class="btn btn-danger btn-sm" data-del="'+x.id+'">Borrar</button>':'')+'</div></div>';
+    }).join('')+'</div>':'<div class="empty">Todavía no hay recursos cargados.</div>';
     C.innerHTML=head+body;
-    if(admin){ document.getElementById('addR').onclick=function(){ resModal(); }; }
-    C.querySelectorAll('[data-del]').forEach(function(b){ b.onclick=function(){ set(K.resources,get(K.resources,[]).filter(function(x){return x.id!==b.getAttribute('data-del');})); renderRecursos(); toast('Recurso borrado'); }; });
-    C.querySelectorAll('[data-dl]').forEach(function(b){ b.onclick=function(){ toast('Este es un recurso de ejemplo'); }; });
+    if(admin)document.getElementById('addR').onclick=function(){resModal();};
+    C.querySelectorAll('[data-del]').forEach(function(b){b.onclick=async function(){var res=await sb.from('resources').delete().eq('id',b.getAttribute('data-del'));if(res.error){toast('Error: '+res.error.message);return;}renderRecursos();toast('Recurso borrado');};});
   }
   function resModal(){
     openModal('<h3 class="serif">Nuevo recurso</h3>'+
@@ -576,136 +517,122 @@
       '<div class="field"><label>Descripción</label><input id="rD" placeholder="PDF · 12 páginas"/></div>'+
       '<div class="field"><label>Enlace (opcional)</label><input id="rU" placeholder="https://..."/></div>'+
       '<div class="modal-acts"><button class="btn btn-ghost" onclick="BGM.closeModal()">Cancelar</button><button class="btn btn-solid" id="rSave">Guardar</button></div>');
-    document.getElementById('rSave').onclick=function(){
-      var t=document.getElementById('rT').value.trim(); if(!t){toast('Escribí un título');return;}
-      var arr=get(K.resources,[]); arr.unshift({id:uid(),title:t,desc:document.getElementById('rD').value.trim()||'PDF',url:document.getElementById('rU').value.trim()});
-      set(K.resources,arr); closeModal(); renderRecursos(); toast('Recurso agregado');
+    document.getElementById('rSave').onclick=async function(){
+      var t=document.getElementById('rT').value.trim();if(!t){toast('Escribí un título');return;}
+      var res=await sb.from('resources').insert({title:t,description:document.getElementById('rD').value.trim(),category:'PDF',storage_path:document.getElementById('rU').value.trim()||null,created_by:ME.id});
+      if(res.error){toast('Error: '+res.error.message);return;}
+      closeModal();renderRecursos();toast('Recurso agregado');
     };
   }
 
   /* ---------- VIDEOS ---------- */
-  function ytId(url){ var m=String(url||'').match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/); return m?m[1]:''; }
-  function renderVideos(){
-    var admin=isAdmin(); var items=get(K.videos,[]);
+  async function renderVideos(){
+    loading();var admin=isAdmin();
+    var r=await sb.from('videos').select('*').order('created_at',{ascending:false});
+    var items=r.data||[];
     var head='<div class="page-head"><div><h1 class="serif">Videos</h1><p>Ideas creativas en video.</p></div>'+
       (admin?'<button class="btn btn-solid" id="addV">+ Nuevo video</button>':'')+'</div>';
-    var body = items.length? '<div class="vgrid">'+items.map(function(v){
-      var id=v.yt||ytId(v.url);
-      var thumb=id?'<img src="https://img.youtube.com/vi/'+id+'/hqdefault.jpg" alt=""/>':'';
+    var body=items.length?'<div class="vgrid">'+items.map(function(v){
+      var id=ytId(v.url);var thumb=id?'<img src="https://img.youtube.com/vi/'+id+'/hqdefault.jpg" alt=""/>':'';
       return '<div class="vcard"><div class="vthumb" '+(v.url?'data-open="'+esc(v.url)+'"':'')+' style="cursor:'+(v.url?'pointer':'default')+'">'+thumb+
         '<div class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div></div>'+
-        '<div class="vbody"><b>'+esc(v.title)+'</b><span>'+esc(v.desc||'')+'</span>'+
-        '<div class="acts">'+(v.url?'<a class="btn btn-ghost btn-sm" href="'+esc(v.url)+'" target="_blank" rel="noopener">Ver</a>':'')+
+        '<div class="vbody"><b>'+esc(v.title)+'</b><span>'+esc(v.channel||'')+'</span><div class="acts">'+
+        (v.url?'<a class="btn btn-ghost btn-sm" href="'+esc(v.url)+'" target="_blank" rel="noopener">Ver</a>':'')+
         (admin?'<button class="btn btn-danger btn-sm" data-del="'+v.id+'">Borrar</button>':'')+'</div></div></div>';
-    }).join('')+'</div>' : '<div class="empty">Todavía no hay videos cargados.</div>';
+    }).join('')+'</div>':'<div class="empty">Todavía no hay videos cargados.</div>';
     C.innerHTML=head+body;
-    if(admin){ document.getElementById('addV').onclick=function(){ vidModal(); }; }
-    C.querySelectorAll('[data-del]').forEach(function(b){ b.onclick=function(){ set(K.videos,get(K.videos,[]).filter(function(x){return x.id!==b.getAttribute('data-del');})); renderVideos(); toast('Video borrado'); }; });
-    C.querySelectorAll('[data-open]').forEach(function(b){ b.onclick=function(){ window.open(b.getAttribute('data-open'),'_blank','noopener'); }; });
+    if(admin)document.getElementById('addV').onclick=function(){vidModal();};
+    C.querySelectorAll('[data-del]').forEach(function(b){b.onclick=async function(){var res=await sb.from('videos').delete().eq('id',b.getAttribute('data-del'));if(res.error){toast('Error: '+res.error.message);return;}renderVideos();toast('Video borrado');};});
+    C.querySelectorAll('[data-open]').forEach(function(b){b.onclick=function(){window.open(b.getAttribute('data-open'),'_blank','noopener');};});
   }
   function vidModal(){
     openModal('<h3 class="serif">Nuevo video</h3>'+
       '<div class="field"><label>Título</label><input id="vT" placeholder="Ej: Manualidad del arca"/></div>'+
-      '<div class="field"><label>Descripción</label><input id="vD" placeholder="Idea creativa · 5 min"/></div>'+
+      '<div class="field"><label>Canal / nota</label><input id="vD" placeholder="Idea creativa · 5 min"/></div>'+
       '<div class="field"><label>Enlace de YouTube</label><input id="vU" placeholder="https://youtube.com/watch?v=..."/></div>'+
       '<div class="modal-acts"><button class="btn btn-ghost" onclick="BGM.closeModal()">Cancelar</button><button class="btn btn-solid" id="vSave">Guardar</button></div>');
-    document.getElementById('vSave').onclick=function(){
-      var t=document.getElementById('vT').value.trim(); if(!t){toast('Escribí un título');return;}
-      var u=document.getElementById('vU').value.trim();
-      var arr=get(K.videos,[]); arr.unshift({id:uid(),title:t,desc:document.getElementById('vD').value.trim(),url:u,yt:ytId(u)});
-      set(K.videos,arr); closeModal(); renderVideos(); toast('Video agregado');
+    document.getElementById('vSave').onclick=async function(){
+      var t=document.getElementById('vT').value.trim();if(!t){toast('Escribí un título');return;}
+      var res=await sb.from('videos').insert({title:t,channel:document.getElementById('vD').value.trim(),url:document.getElementById('vU').value.trim(),created_by:ME.id});
+      if(res.error){toast('Error: '+res.error.message);return;}
+      closeModal();renderVideos();toast('Video agregado');
     };
   }
 
   /* ---------- VERSÍCULOS ---------- */
-  var THEMES=[['v-dark','Oscuro'],['v-rust','Tierra'],['v-cream','Crema'],['v-sage','Verde'],['v-sky','Azul'],['v-plum','Lila']];
-  function renderVersiculos(){
-    var admin=isAdmin(); var items=get(K.verses,[]);
+  async function renderVersiculos(){
+    loading();var admin=isAdmin();
+    var r=await sb.from('verses').select('*').order('created_at',{ascending:false});
+    var items=r.data||[];
     var head='<div class="page-head"><div><h1 class="serif">Versículos</h1><p>Láminas listas para imprimir para el aula.</p></div>'+
-      (admin?'<button class="btn btn-solid" id="addV">+ Crear lámina</button>':'')+'</div>';
-    var body = items.length? '<div class="verse-grid">'+items.map(function(v){
-      return '<div class="verse"><div class="art '+esc(v.theme||'v-cream')+'">'+
-        '<div class="icon">✦</div><div class="ref">'+esc(v.ref)+'</div><div class="txt serif">'+esc(v.txt)+'</div></div>'+
+      (admin?'<button class="btn btn-solid" id="addVs">+ Crear lámina</button>':'')+'</div>';
+    var body=items.length?'<div class="verse-grid">'+items.map(function(v){
+      return '<div class="verse"><div class="art '+esc(v.theme||'v-cream')+'"><div class="icon">✦</div><div class="ref">'+esc(v.reference)+'</div><div class="txt serif">'+esc(v.text)+'</div></div>'+
         '<div class="acts"><button class="btn btn-ghost btn-sm" data-print="'+v.id+'">Imprimir</button>'+
         (admin?'<button class="btn btn-danger btn-sm" data-del="'+v.id+'">Borrar</button>':'')+'</div></div>';
-    }).join('')+'</div>' : '<div class="empty">Todavía no hay láminas creadas.</div>';
+    }).join('')+'</div>':'<div class="empty">Todavía no hay láminas creadas.</div>';
     C.innerHTML=head+body;
-    if(admin){ document.getElementById('addV').onclick=function(){ verseModal(); }; }
-    C.querySelectorAll('[data-del]').forEach(function(b){ b.onclick=function(){ set(K.verses,get(K.verses,[]).filter(function(x){return x.id!==b.getAttribute('data-del');})); renderVersiculos(); toast('Lámina borrada'); }; });
-    C.querySelectorAll('[data-print]').forEach(function(b){ b.onclick=function(){ printVerse(b.getAttribute('data-print')); }; });
+    if(admin)document.getElementById('addVs').onclick=function(){verseModal();};
+    C.querySelectorAll('[data-del]').forEach(function(b){b.onclick=async function(){var res=await sb.from('verses').delete().eq('id',b.getAttribute('data-del'));if(res.error){toast('Error: '+res.error.message);return;}renderVersiculos();toast('Lámina borrada');};});
+    C.querySelectorAll('[data-print]').forEach(function(b){b.onclick=function(){var v=items.filter(function(x){return x.id===b.getAttribute('data-print');})[0];printVerse(v);};});
   }
   function verseModal(){
     openModal('<h3 class="serif">Crear lámina</h3>'+
       '<div class="field"><label>Referencia</label><input id="vRef" placeholder="Ej: Juan 3:16"/></div>'+
       '<div class="field"><label>Texto del versículo</label><textarea id="vTxt" placeholder="Escribí el versículo..."></textarea></div>'+
       '<div class="field"><label>Estilo</label><select id="vTheme">'+THEMES.map(function(t){return '<option value="'+t[0]+'">'+t[1]+'</option>';}).join('')+'</select></div>'+
-      '<div class="modal-acts"><button class="btn btn-ghost" onclick="BGM.closeModal()">Cancelar</button><button class="btn btn-solid" id="vSave">Guardar</button></div>');
-    document.getElementById('vSave').onclick=function(){
-      var r=document.getElementById('vRef').value.trim(), t=document.getElementById('vTxt').value.trim();
-      if(!r||!t){toast('Completá referencia y texto');return;}
-      var arr=get(K.verses,[]); arr.unshift({id:uid(),ref:r,txt:t,theme:document.getElementById('vTheme').value});
-      set(K.verses,arr); closeModal(); renderVersiculos(); toast('Lámina creada');
+      '<div class="modal-acts"><button class="btn btn-ghost" onclick="BGM.closeModal()">Cancelar</button><button class="btn btn-solid" id="vsSave">Guardar</button></div>');
+    document.getElementById('vsSave').onclick=async function(){
+      var ref=document.getElementById('vRef').value.trim(),txt=document.getElementById('vTxt').value.trim();
+      if(!ref||!txt){toast('Completá referencia y texto');return;}
+      var res=await sb.from('verses').insert({reference:ref,text:txt,theme:document.getElementById('vTheme').value,created_by:ME.id});
+      if(res.error){toast('Error: '+res.error.message);return;}
+      closeModal();renderVersiculos();toast('Lámina creada');
     };
   }
-  function printVerse(id){
-    var v=get(K.verses,[]).filter(function(x){return x.id===id;})[0]; if(!v)return;
-    var w=window.open('','_blank'); if(!w){toast('Permití las ventanas emergentes para imprimir');return;}
-    var colors={ 'v-dark':['#302b25','#f3ece0'],'v-rust':['#6f4a24','#f6ead9'],'v-cream':['#efe7d7','#4a4335'],'v-sage':['#e4e9db','#414a34'],'v-sky':['#dfe7ec','#3a4c58'],'v-plum':['#e7dde4','#4f3f4c'] };
+  function printVerse(v){
+    if(!v)return;var w=window.open('','_blank');if(!w){toast('Permití las ventanas emergentes para imprimir');return;}
+    var colors={'v-dark':['#302b25','#f3ece0'],'v-rust':['#6f4a24','#f6ead9'],'v-cream':['#efe7d7','#4a4335'],'v-sage':['#e4e9db','#414a34'],'v-sky':['#dfe7ec','#3a4c58'],'v-plum':['#e7dde4','#4f3f4c']};
     var col=colors[v.theme]||colors['v-cream'];
-    w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>'+esc(v.ref)+'</title>'+
+    w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>'+esc(v.reference)+'</title>'+
       '<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&display=swap" rel="stylesheet">'+
-      '<style>@page{margin:0}body{margin:0;font-family:Fraunces,Georgia,serif;display:flex;align-items:center;justify-content:center;height:100vh}'+
-      '.p{width:100%;height:100vh;background:'+col[0]+';color:'+col[1]+';display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:40px;padding:8%}'+
-      '.ref{font-size:20px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}.txt{font-size:52px;line-height:1.35;max-width:80%}.ic{font-size:44px;opacity:.7}</style></head>'+
-      '<body><div class="p"><div class="ic">✦</div><div class="ref">'+esc(v.ref)+'</div><div class="txt">'+esc(v.txt)+'</div></div>'+
-      '<script>window.onload=function(){setTimeout(function(){window.print();},400);}<\/script></body></html>');
+      '<style>@page{margin:0}body{margin:0;font-family:Fraunces,Georgia,serif}.p{width:100%;height:100vh;background:'+col[0]+';color:'+col[1]+';display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:40px;padding:8%}.ref{font-size:20px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}.txt{font-size:52px;line-height:1.35;max-width:80%}.ic{font-size:44px;opacity:.7}</style></head>'+
+      '<body><div class="p"><div class="ic">✦</div><div class="ref">'+esc(v.reference)+'</div><div class="txt">'+esc(v.text)+'</div></div>'+
+      '<scr'+'ipt>window.onload=function(){setTimeout(function(){window.print();},400);}</scr'+'ipt></body></html>');
     w.document.close();
   }
 
-  /* ---------- COMENTARIOS ---------- */
-  var comTab='muro';
-  function renderComentarios(){
-    C.innerHTML='<div class="page-head"><div><h1 class="serif">Comentarios</h1><p>El foro y los mensajes del equipo.</p></div></div>'+
-      '<div class="tabs" id="comTabs"><button data-t="muro" class="'+(comTab==='muro'?'on':'')+'">Muro del equipo</button>'+
-      '<button data-t="mensajes" class="'+(comTab==='mensajes'?'on':'')+'">Mensajes</button></div>'+
-      '<div id="comBody"></div>';
-    C.querySelectorAll('#comTabs button').forEach(function(b){ b.onclick=function(){ comTab=b.getAttribute('data-t'); renderComentarios(); }; });
-    comTab==='muro'?renderMuro():renderMensajes();
-  }
-  function renderMuro(){
-    var who=isAdmin()?'Coordinación BGM':'Equipo de maestros';
-    var posts=get(K.posts,[]).slice().sort(function(a,b){return b.ts-a.ts;});
-    var html='<div class="composer"><textarea id="pcTxt" placeholder="Compartí algo con el equipo..."></textarea><button class="btn btn-solid" id="pcSend">Publicar</button></div>';
-    html+= posts.length? posts.map(function(p){
-      var canDel=isAdmin()||p.author===who;
-      return '<div class="post"><div class="ph"><div class="avatar">'+esc(p.author.charAt(0))+'</div><div><b>'+esc(p.author)+'</b><span> · '+ago(p.ts)+'</span></div>'+
-        (canDel?'<button class="btn btn-danger btn-sm del" data-del="'+p.id+'">Borrar</button>':'')+'</div>'+
-        '<div class="body">'+esc(p.body)+'</div></div>';
-    }).join('') : '<div class="empty">Sé el primero en escribir en el muro.</div>';
-    document.getElementById('comBody').innerHTML=html;
-    document.getElementById('pcSend').onclick=function(){
-      var t=document.getElementById('pcTxt').value.trim(); if(!t){toast('Escribí algo');return;}
-      var arr=get(K.posts,[]); arr.push({id:uid(),author:who,body:t,ts:Date.now()}); set(K.posts,arr); renderMuro(); toast('Publicado');
+  /* ---------- COMENTARIOS (Muro) ---------- */
+  async function renderComentarios(){
+    loading();
+    C.innerHTML='<div class="page-head"><div><h1 class="serif">Comentarios</h1><p>El muro del equipo.</p></div></div>'+
+      '<div class="composer"><textarea id="pcTxt" placeholder="Compartí algo con el equipo..."></textarea><button class="btn btn-solid" id="pcSend">Publicar</button></div>'+
+      '<div id="wall"><div class="loading">Cargando…</div></div>';
+    document.getElementById('pcSend').onclick=async function(){
+      var t=document.getElementById('pcTxt').value.trim();if(!t){toast('Escribí algo');return;}
+      var res=await sb.from('comments').insert({body:t,author_id:ME.id});
+      if(res.error){toast('Error: '+res.error.message);return;}
+      document.getElementById('pcTxt').value='';loadWall();toast('Publicado');
     };
-    document.querySelectorAll('#comBody [data-del]').forEach(function(b){ b.onclick=function(){ set(K.posts,get(K.posts,[]).filter(function(x){return x.id!==b.getAttribute('data-del');})); renderMuro(); toast('Borrado'); }; });
+    loadWall();
   }
-  function renderMensajes(){
-    var who=isAdmin()?'Coordinación BGM':'Equipo de maestros';
-    var msgs=get(K.msgs,[]).slice().sort(function(a,b){return a.ts-b.ts;});
-    var html='<div class="msg-list" id="ml">'+ (msgs.length? msgs.map(function(m){
-      return '<div class="msg"><div class="avatar">'+esc(m.author.charAt(0))+'</div><div class="mb"><b>'+esc(m.author)+'</b> <span>'+ago(m.ts)+'</span><p>'+esc(m.body)+'</p></div></div>';
-    }).join('') : '<div class="empty">No hay mensajes todavía.</div>')+'</div>'+
-      '<div class="composer" style="margin-top:18px"><textarea id="mTxt" placeholder="Escribí un mensaje al equipo..."></textarea><button class="btn btn-solid" id="mSend">Enviar</button></div>';
-    document.getElementById('comBody').innerHTML=html;
-    document.getElementById('mSend').onclick=function(){
-      var t=document.getElementById('mTxt').value.trim(); if(!t){toast('Escribí un mensaje');return;}
-      var arr=get(K.msgs,[]); arr.push({id:uid(),author:who,body:t,ts:Date.now()}); set(K.msgs,arr); renderMensajes(); toast('Enviado');
-    };
+  async function loadWall(){
+    var r=await sb.from('comments').select('*').order('created_at',{ascending:false});
+    var posts=r.data||[];var wall=document.getElementById('wall');if(!wall)return;
+    if(!posts.length){wall.innerHTML='<div class="empty">Sé el primero en escribir en el muro.</div>';return;}
+    wall.innerHTML=posts.map(function(p){
+      var name=PROFILES[p.author_id]||'Miembro del equipo';
+      var canDel=isAdmin()||p.author_id===ME.id;
+      return '<div class="post"><div class="ph"><div class="avatar">'+esc(name.charAt(0))+'</div><div><b>'+esc(name)+'</b><span> · '+ago(p.created_at)+'</span></div>'+
+        (canDel?'<button class="btn btn-danger btn-sm del" data-del="'+p.id+'">Borrar</button>':'')+'</div><div class="body">'+esc(p.body)+'</div></div>';
+    }).join('');
+    wall.querySelectorAll('[data-del]').forEach(function(b){b.onclick=async function(){var res=await sb.from('comments').delete().eq('id',b.getAttribute('data-del'));if(res.error){toast('Error: '+res.error.message);return;}loadWall();toast('Borrado');};});
   }
 
   /* ---------- Boot ---------- */
-  seed();
-  if(isAuthed()){ enterApp(); } else { showLogin(); }
+  sb.auth.getSession().then(function(r){
+    if(r.data.session){enterApp();}else{showLogin();}
+  }).catch(function(){showLogin();});
 })();
 </script>
 </body>
