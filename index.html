@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="theme-color" content="#2e2a24" />
+<title>Boys &amp; Girls in Mission</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f7f3ec; --panel:#fffdf8; --card:#fffdf9; --ink:#2e2a24; --muted:#8b8172;
+    --line:#e7e0d2; --line-soft:#efe9dd; --accent:#b05c37; --accent-soft:#f0e4da;
+    --gold:#a98a45; --active:#f1ebe0; --shadow:0 1px 2px rgba(46,42,36,.05),0 8px 24px rgba(46,42,36,.05);
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --serif:'Fraunces',Georgia,'Times New Roman',serif;
+    --sidebar-w:248px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;font-size:15px}
+  button{font-family:inherit;cursor:pointer}
+  input,textarea,select{font-family:inherit;font-size:15px}
+  a{color:inherit}
+  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .serif{font-family:var(--serif)}
+  .hidden{display:none !important}
+
+  /* ---------- Buttons ---------- */
+  .btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;border:1px solid var(--accent);
+    background:transparent;color:var(--accent);border-radius:10px;padding:11px 18px;font-weight:600;font-size:14px;
+    min-height:44px;transition:background .15s,color .15s,transform .05s;white-space:nowrap}
+  .btn:hover{background:var(--accent);color:#fff}
+  .btn:active{transform:translateY(1px)}
+  .btn-solid{background:var(--accent);color:#fff}
+  .btn-solid:hover{background:#95492a}
+  .btn-ghost{border-color:var(--line);color:var(--ink)}
+  .btn-ghost:hover{background:var(--active);color:var(--ink)}
+  .btn-sm{padding:8px 13px;min-height:38px;border-radius:9px;font-size:13px}
+  .btn-danger{border-color:#c98b7a;color:#a5502f}
+  .btn-danger:hover{background:#a5502f;border-color:#a5502f;color:#fff}
+
+  /* ---------- Login ---------- */
+  #login{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
+  .login-card{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:18px;
+    padding:40px 34px;box-shadow:var(--shadow);text-align:center}
+  .login-logo{width:120px;height:auto;margin:0 auto 22px;display:block;border-radius:10px}
+  .login-card h1{font-family:var(--serif);font-size:30px;font-weight:600;margin:10px 0 4px;letter-spacing:-.01em}
+  .login-card .sub{color:var(--muted);margin-bottom:26px}
+  .field{text-align:left;margin-bottom:16px}
+  .field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:500}
+  .field input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;min-height:46px;color:var(--ink)}
+  .field input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .login-card .btn{width:100%;margin-top:6px}
+  .login-alt{margin-top:20px;color:var(--muted);font-size:14px}
+  .login-alt b{color:var(--accent);cursor:pointer;font-weight:600}
+  .role-pick{display:flex;gap:10px;margin-top:14px}
+  .role-pick button{flex:1;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px;font-size:13px;color:var(--muted);min-height:44px}
+  .role-pick button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);font-weight:600}
+
+  /* ---------- App shell ---------- */
+  #app{display:none;min-height:100%}
+  .shell{display:flex;min-height:100vh}
+  .sidebar{width:var(--sidebar-w);flex:0 0 var(--sidebar-w);background:var(--panel);border-right:1px solid var(--line);
+    display:flex;flex-direction:column;position:sticky;top:0;height:100vh;padding:18px 14px;z-index:60}
+  .side-logo{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:22px;background:#fff}
+  .side-logo img{width:100%;display:block}
+  .nav{display:flex;flex-direction:column;gap:2px;flex:1}
+  .nav a{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:10px;color:var(--ink);
+    text-decoration:none;font-weight:500;font-size:14.5px;min-height:44px}
+  .nav a:hover{background:var(--active)}
+  .nav a.active{background:var(--active);color:var(--accent);font-weight:600}
+  .nav a svg{width:19px;height:19px;flex:0 0 19px;stroke:currentColor;fill:none;stroke-width:1.7}
+  .side-foot{border-top:1px solid var(--line-soft);padding-top:14px;margin-top:10px}
+  .side-foot .eyebrow{margin-bottom:10px;display:block}
+  .role-toggle{display:flex;background:var(--active);border-radius:10px;padding:4px}
+  .role-toggle button{flex:1;border:none;background:transparent;padding:8px;border-radius:7px;font-size:13px;color:var(--muted);min-height:40px;font-weight:500}
+  .role-toggle button.on{background:#fff;color:var(--accent);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+  .side-login-link{display:block;margin-top:12px;font-size:13px;color:var(--muted);text-decoration:none}
+  .side-login-link:hover{color:var(--accent)}
+
+  /* ---------- Main ---------- */
+  .main{flex:1;min-width:0;display:flex;flex-direction:column}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 28px;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:40}
+  .topbar .tt .eyebrow{display:block}
+  .topbar .tt h2{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--accent)}
+  .topbar .who{display:flex;align-items:center;gap:14px}
+  .topbar .who .name{text-align:right;line-height:1.25}
+  .topbar .who .name b{display:block;font-size:14px}
+  .topbar .who .name span{font-size:12px;color:var(--muted)}
+  .avatar{width:38px;height:38px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:600;flex:0 0 38px}
+  .hamb{display:none;border:1px solid var(--line);background:#fff;border-radius:10px;width:44px;height:44px;align-items:center;justify-content:center}
+  .hamb svg{width:20px;height:20px;stroke:var(--ink);stroke-width:1.9;fill:none}
+  .content{padding:30px 28px 60px;max-width:1180px;width:100%}
+
+  /* ---------- Generic bits ---------- */
+  .page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+  .page-head h1{font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:-.01em}
+  .page-head p{color:var(--muted);margin-top:3px}
+  .hero{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 32px;margin-bottom:26px;box-shadow:var(--shadow)}
+  .hero .eyebrow{display:block;margin-bottom:8px}
+  .hero h1{font-family:var(--serif);font-size:34px;font-weight:600;letter-spacing:-.01em}
+  .hero p{color:var(--muted);margin-top:8px;font-size:16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+  .tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow);
+    text-align:left;cursor:pointer;transition:transform .12s,box-shadow .12s;border-left:3px solid transparent}
+  .tile:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(46,42,36,.10);border-left-color:var(--accent)}
+  .tile .eyebrow{display:block;margin-bottom:10px}
+  .tile h3{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:6px}
+  .tile p{color:var(--muted);font-size:14px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+  .empty{color:var(--muted);text-align:center;padding:50px 20px;border:1px dashed var(--line);border-radius:14px;background:var(--panel)}
+
+  /* Calendar */
+  .cal-nav{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+  .cal-nav button{width:40px;height:40px;border:1px solid var(--line);background:#fff;border-radius:9px;font-size:17px;color:var(--ink)}
+  .cal-nav button:hover{background:var(--active)}
+  .cal-nav .m{font-family:var(--serif);font-size:22px;font-weight:600;min-width:180px;text-transform:capitalize}
+  .cal-wrap{overflow-x:auto}
+  .cal{width:100%;border-collapse:collapse;min-width:620px;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .cal th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:12px 8px;border-bottom:1px solid var(--line);text-align:left}
+  .cal td{border:1px solid var(--line-soft);vertical-align:top;height:96px;width:14.28%;padding:7px;position:relative}
+  .cal td.off{background:#faf7f1}
+  .cal .dnum{font-size:13px;color:var(--muted);font-weight:500}
+  .cal td.today .dnum{background:var(--accent);color:#fff;border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center}
+  .ev{margin-top:5px;font-size:11.5px;padding:4px 7px;border-radius:6px;background:var(--accent-soft);color:#8a3f22;
+    border-left:3px solid var(--accent);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ev.g{background:#eef1e6;color:#5a6636;border-left-color:#8a9a52}
+  .ev.b{background:#e9eef2;color:#3f5666;border-left-color:#6f93a8}
+
+  /* Resource / video list */
+  .list{display:flex;flex-direction:column;gap:12px}
+  .row{display:flex;align-items:center;gap:16px;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow)}
+  .row .ico{width:44px;height:44px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:0 0 44px}
+  .row .ico svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7}
+  .row .meta{flex:1;min-width:0}
+  .row .meta b{font-size:15.5px;display:block}
+  .row .meta span{color:var(--muted);font-size:13px}
+  .row .acts{display:flex;gap:8px;flex-shrink:0}
+
+  .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  .vcard{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+  .vthumb{position:relative;aspect-ratio:16/9;background:#2e2a24;overflow:hidden}
+  .vthumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.92}
+  .vthumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .vthumb .play span{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center}
+  .vthumb .play svg{width:22px;height:22px;fill:var(--accent);margin-left:3px}
+  .vbody{padding:16px 18px}
+  .vbody b{font-size:15.5px;display:block;margin-bottom:4px}
+  .vbody span{color:var(--muted);font-size:13px}
+  .vbody .acts{margin-top:12px;display:flex;gap:8px}
+
+  /* Verses */
+  .verse-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+  .verse{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);display:flex;flex-direction:column}
+  .verse .art{padding:34px 22px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;min-height:210px}
+  .verse .ref{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;opacity:.85}
+  .verse .txt{font-family:var(--serif);font-size:18px;line-height:1.4}
+  .verse .icon{font-size:20px;opacity:.8}
+  .verse .acts{display:flex;gap:8px;padding:12px;background:var(--panel);border-top:1px solid var(--line)}
+  .verse .acts .btn{flex:1}
+  .v-dark{background:#302b25;color:#f3ece0}
+  .v-rust{background:#6f4a24;color:#f6ead9}
+  .v-cream{background:#efe7d7;color:#4a4335}
+  .v-sage{background:#e4e9db;color:#414a34}
+  .v-sky{background:#dfe7ec;color:#3a4c58}
+  .v-plum{background:#e7ddE4;color:#4f3f4c}
+
+  /* Comments */
+  .tabs{display:flex;gap:6px;background:var(--active);padding:5px;border-radius:11px;margin-bottom:22px;max-width:360px}
+  .tabs button{flex:1;border:none;background:transparent;padding:10px;border-radius:8px;font-size:14px;color:var(--muted);min-height:42px;font-weight:500}
+  .tabs button.on{background:#fff;color:var(--accent);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+  .composer{display:flex;gap:12px;margin-bottom:22px}
+  .composer textarea{flex:1;border:1px solid var(--line);border-radius:12px;padding:13px 15px;resize:vertical;min-height:52px;background:#fff}
+  .composer textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .post{padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:13px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .post .ph{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .post .ph .avatar{width:34px;height:34px;flex:0 0 34px;font-size:13px}
+  .post .ph b{font-size:14.5px}
+  .post .ph span{font-size:12px;color:var(--muted)}
+  .post .body{font-size:14.5px;white-space:pre-wrap}
+  .post .del{margin-left:auto}
+  .msg-list{display:flex;flex-direction:column;gap:10px}
+  .msg{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+  .msg .avatar{width:34px;height:34px;flex:0 0 34px;font-size:13px}
+  .msg .mb b{font-size:14px}
+  .msg .mb p{font-size:14px;color:#4a453c;margin-top:2px}
+  .msg .mb span{font-size:12px;color:var(--muted)}
+
+  /* Modal */
+  .overlay{position:fixed;inset:0;background:rgba(38,34,28,.5);backdrop-filter:blur(2px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+  .overlay.show{display:flex}
+  .modal{background:var(--panel);border-radius:18px;width:100%;max-width:460px;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,.25);max-height:90vh;overflow:auto}
+  .modal h3{font-family:var(--serif);font-size:22px;font-weight:600;margin-bottom:18px}
+  .modal .field textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;min-height:80px;resize:vertical;background:#fff}
+  .modal .field select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;min-height:46px}
+  .modal-acts{display:flex;gap:10px;margin-top:22px}
+  .modal-acts .btn{flex:1}
+
+  /* Sidebar backdrop (mobile) */
+  .backdrop{position:fixed;inset:0;background:rgba(38,34,28,.45);z-index:55;display:none}
+  .backdrop.show{display:block}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;z-index:200;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:900px){
+    .sidebar{position:fixed;left:0;top:0;transform:translateX(-100%);transition:transform .25s ease;box-shadow:0 0 40px rgba(0,0,0,.15)}
+    .sidebar.open{transform:translateX(0)}
+    .hamb{display:flex}
+    .topbar{padding:14px 16px}
+    .content{padding:22px 16px 60px}
+    .topbar .who .name{display:none}
+    .hero{padding:24px 20px}
+    .hero h1{font-size:27px}
+    .page-head h1{font-size:25px}
+    .grid{grid-template-columns:1fr}
+    .vgrid{grid-template-columns:1fr}
+    .verse-grid{grid-template-columns:1fr 1fr}
+    .row{flex-wrap:wrap}
+    .row .acts{width:100%;justify-content:flex-end}
+    .composer{flex-direction:column}
+    .composer .btn{width:100%}
+  }
+  @media(max-width:560px){
+    .verse-grid{grid-template-columns:1fr}
+    .hero h1{font-size:24px}
+    .page-head{flex-direction:column}
+    .page-head .btn{width:100%}
+  }
+  @media print{
+    .sidebar,.topbar,.backdrop,.page-head .btn,.verse .acts{display:none !important}
+    .content{padding:0}
+    .verse-grid{grid-template-columns:1fr 1fr}
+    body{background:#fff}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div id="login">
+  <div class="login-card">
+    <img class="login-logo" alt="Boys & Girls in Mission" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 150'><rect width='300' height='150' rx='10' fill='%23eaf3f2'/><text x='150' y='70' font-family='Fraunces,Georgia,serif' font-size='34' font-weight='700' fill='%23b05c37' text-anchor='middle'>BOYS%26GIRLS</text><text x='150' y='104' font-family='Fraunces,Georgia,serif' font-size='22' font-weight='600' fill='%236f4a24' text-anchor='middle' letter-spacing='3'>IN MISSION</text></svg>" />
+    <div class="eyebrow">Escuela Bíblica</div>
+    <h1 class="serif">Boys &amp; Girls in Mission</h1>
+    <div class="sub">Equipo de maestros</div>
+    <form id="loginForm">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="liEmail" placeholder="tu@correo.com" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <label>Contraseña</label>
+        <input type="password" id="liPass" placeholder="••••••••" autocomplete="current-password" required />
+      </div>
+      <div class="role-pick" id="rolePick">
+        <button type="button" data-role="admin" class="on">Coordinación</button>
+        <button type="button" data-role="maestro">Maestro/a</button>
+      </div>
+      <button class="btn btn-solid" type="submit">Ingresar</button>
+    </form>
+    <div class="login-alt">¿No tenés cuenta? <b id="goReg">Registrate</b></div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app">
+  <div class="backdrop" id="backdrop"></div>
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-logo">
+        <img alt="Boys & Girls in Mission" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 130'><rect width='300' height='130' rx='8' fill='%23eaf3f2'/><text x='150' y='62' font-family='Fraunces,Georgia,serif' font-size='30' font-weight='700' fill='%23b05c37' text-anchor='middle'>BOYS%26GIRLS</text><text x='150' y='92' font-family='Fraunces,Georgia,serif' font-size='19' font-weight='600' fill='%236f4a24' text-anchor='middle' letter-spacing='3'>IN MISSION</text></svg>" />
+      </div>
+      <nav class="nav" id="nav">
+        <a href="#inicio" data-v="inicio"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Inicio</a>
+        <a href="#calendario" data-v="calendario"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>Calendario</a>
+        <a href="#recursos" data-v="recursos"><svg viewBox="0 0 24 24"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/></svg>Recursos</a>
+        <a href="#videos" data-v="videos"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>Videos</a>
+        <a href="#versiculos" data-v="versiculos"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 6l7 3 7-3M5 18l7 3 7-3M5 6v12M19 6v12"/></svg>Versículos</a>
+        <a href="#comentarios" data-v="comentarios"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Comentarios</a>
+      </nav>
+      <div class="side-foot">
+        <span class="eyebrow">Sesión</span>
+        <div class="role-toggle" id="roleToggle">
+          <button data-role="admin">Coordinación</button>
+          <button data-role="maestro">Maestro/a</button>
+        </div>
+        <a class="side-login-link" id="logout" href="#">Cerrar sesión →</a>
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="topbar">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="hamb" id="hamb" aria-label="Menú"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+          <div class="tt">
+            <span class="eyebrow">Boys &amp; Girls in Mission</span>
+            <h2 class="serif" id="pageTitle">Inicio</h2>
+          </div>
+        </div>
+        <div class="who">
+          <div class="name"><b>Coordinación BGM</b><span id="roleLabel">Administrador</span></div>
+          <div class="avatar" id="avatar">C</div>
+        </div>
+      </div>
+      <div class="content" id="content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal + toast -->
+<div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   Boys & Girls in Mission — app de escuela bíblica
+   Datos persistidos en localStorage (por dispositivo/navegador).
+   ============================================================ */
+(function(){
+  "use strict";
+  var LS = window.localStorage;
+  var K = {
+    auth:'bgm_auth', role:'bgm_role',
+    events:'bgm_events', resources:'bgm_resources',
+    videos:'bgm_videos', verses:'bgm_verses',
+    posts:'bgm_posts', msgs:'bgm_msgs'
+  };
+  var MONTHS=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  var WD=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+
+  function get(k,def){ try{ var v=LS.getItem(k); return v==null?def:JSON.parse(v);}catch(e){return def;} }
+  function set(k,v){ try{ LS.setItem(k,JSON.stringify(v)); }catch(e){} }
+  function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function fmtDate(d){ var x=new Date(d); return x.getDate()+' '+MONTHS[x.getMonth()].slice(0,3)+' '+x.getFullYear(); }
+  function ago(ts){ var s=(Date.now()-ts)/1000; if(s<60)return'hace instantes'; if(s<3600)return'hace '+Math.floor(s/60)+' min'; if(s<86400)return'hace '+Math.floor(s/3600)+' h'; return'hace '+Math.floor(s/86400)+' días'; }
+
+  /* ---------- Seed data (solo la primera vez) ---------- */
+  function seed(){
+    var y=2026, m=7; // agosto 2026 (0-index)
+    if(get(K.events,null)===null){
+      var ev=[];
+      // clases dominicales
+      [2,9,16,23,30].forEach(function(d){ ev.push({id:uid(),date:new Date(y,m,d).toISOString(),title:'Clase dominical',type:'a'}); });
+      ev.push({id:uid(),date:new Date(y,m,5).toISOString(),title:'Reunión de equipo',type:'a'});
+      ev.push({id:uid(),date:new Date(y,m,8).toISOString(),title:'Preparación de materiales',type:'g'});
+      ev.push({id:uid(),date:new Date(y,m,13).toISOString(),title:'Ensayo de alabanza',type:'b'});
+      ev.push({id:uid(),date:new Date(y,m,19).toISOString(),title:'Reunión general',type:'a'});
+      ev.push({id:uid(),date:new Date(y,m,27).toISOString(),title:'Preparación — decoración',type:'g'});
+      set(K.events,ev);
+    }
+    if(get(K.resources,null)===null){
+      set(K.resources,[
+        {id:uid(),title:'Guía de la clase — Agosto',desc:'PDF · 12 páginas · Plan de lecciones',url:''},
+        {id:uid(),title:'Hoja para colorear — El buen pastor',desc:'PDF · Para imprimir',url:''},
+        {id:uid(),title:'Manual del maestro 2026',desc:'PDF · 40 páginas',url:''},
+        {id:uid(),title:'Actividades para los más chicos',desc:'PDF · Juegos y dinámicas',url:''}
+      ]);
+    }
+    if(get(K.videos,null)===null){
+      set(K.videos,[
+        {id:uid(),title:'Manualidad: el arca de Noé',desc:'Idea creativa · 6 min',url:'https://www.youtube.com/watch?v=', yt:''},
+        {id:uid(),title:'Canción con gestos — Yo tengo gozo',desc:'Alabanza infantil · 3 min',url:'', yt:''},
+        {id:uid(),title:'Dinámica rompehielos para el aula',desc:'Actividad · 4 min',url:'', yt:''}
+      ]);
+    }
+    if(get(K.verses,null)===null){
+      set(K.verses,[
+        {id:uid(),ref:'Salmos 119:105',txt:'Lámpara es a mis pies tu palabra, y lumbrera a mi camino.',theme:'v-dark'},
+        {id:uid(),ref:'Filipenses 4:13',txt:'Todo lo puedo en Cristo que me fortalece.',theme:'v-rust'},
+        {id:uid(),ref:'Proverbios 22:6',txt:'Instruye al niño en su camino, y aun cuando fuere viejo no se apartará de él.',theme:'v-cream'},
+        {id:uid(),ref:'Josué 1:9',txt:'Esfuérzate y sé valiente; no temas ni desmayes.',theme:'v-sage'}
+      ]);
+    }
+    if(get(K.posts,null)===null){
+      set(K.posts,[
+        {id:uid(),author:'Coordinación BGM',body:'¡Gracias equipo por el domingo! Fue una mañana hermosa. Recuerden traer los materiales para la próxima clase.',ts:Date.now()-3600*1000*20},
+        {id:uid(),author:'Ana (Maestra)',body:'Los chicos amaron la manualidad del arca 🐘 ¿Alguien tiene más témperas para prestar?',ts:Date.now()-3600*1000*6}
+      ]);
+    }
+    if(get(K.msgs,null)===null){
+      set(K.msgs,[
+        {id:uid(),author:'Coordinación BGM',body:'Bienvenidos al canal del equipo. Cualquier duda, escriban por acá.',ts:Date.now()-3600*1000*48}
+      ]);
+    }
+  }
+
+  /* ---------- Auth ---------- */
+  function isAuthed(){ return get(K.auth,false)===true; }
+  function role(){ return get(K.role,'admin'); }
+  function isAdmin(){ return role()==='admin'; }
+
+  var loginEl=document.getElementById('login');
+  var appEl=document.getElementById('app');
+  var pendingRole='admin';
+
+  document.querySelectorAll('#rolePick button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('#rolePick button').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on'); pendingRole=b.getAttribute('data-role');
+    });
+  });
+  document.getElementById('loginForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    set(K.auth,true); set(K.role,pendingRole);
+    enterApp();
+  });
+  document.getElementById('goReg').addEventListener('click',function(){
+    set(K.auth,true); set(K.role,pendingRole); enterApp();
+  });
+  document.getElementById('logout').addEventListener('click',function(e){
+    e.preventDefault(); set(K.auth,false); location.hash=''; showLogin();
+  });
+
+  function showLogin(){ appEl.style.display='none'; loginEl.style.display='flex'; }
+  function enterApp(){
+    loginEl.style.display='none'; appEl.style.display='block';
+    applyRoleUI(); route();
+  }
+
+  /* ---------- Role UI ---------- */
+  function applyRoleUI(){
+    var admin=isAdmin();
+    document.getElementById('roleLabel').textContent=admin?'Administrador':'Maestro/a';
+    document.getElementById('avatar').textContent=admin?'C':'M';
+    document.querySelector('.who .name b').textContent=admin?'Coordinación BGM':'Equipo de maestros';
+    document.querySelectorAll('#roleToggle button').forEach(function(b){
+      b.classList.toggle('on', b.getAttribute('data-role')===role());
+    });
+  }
+  document.querySelectorAll('#roleToggle button').forEach(function(b){
+    b.addEventListener('click',function(){
+      set(K.role,b.getAttribute('data-role')); applyRoleUI(); route();
+    });
+  });
+
+  /* ---------- Sidebar (mobile) ---------- */
+  var sidebar=document.getElementById('sidebar'), backdrop=document.getElementById('backdrop');
+  function openSide(){ sidebar.classList.add('open'); backdrop.classList.add('show'); }
+  function closeSide(){ sidebar.classList.remove('open'); backdrop.classList.remove('show'); }
+  document.getElementById('hamb').addEventListener('click',openSide);
+  backdrop.addEventListener('click',closeSide);
+
+  /* ---------- Toast ---------- */
+  var toastEl=document.getElementById('toast'), toastT;
+  function toast(msg){ toastEl.textContent=msg; toastEl.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(function(){toastEl.classList.remove('show');},1800); }
+
+  /* ---------- Modal ---------- */
+  var overlay=document.getElementById('overlay'), modal=document.getElementById('modal');
+  function openModal(html){ modal.innerHTML=html; overlay.classList.add('show'); }
+  function closeModal(){ overlay.classList.remove('show'); modal.innerHTML=''; }
+  overlay.addEventListener('click',function(e){ if(e.target===overlay) closeModal(); });
+  window.BGM={closeModal:closeModal}; // for inline handlers
+
+  /* ---------- Router ---------- */
+  var VIEWS={inicio:'Inicio',calendario:'Calendario',recursos:'Recursos',videos:'Videos',versiculos:'Versículos',comentarios:'Comentarios'};
+  function currentView(){ var h=(location.hash||'#inicio').replace('#',''); return VIEWS[h]?h:'inicio'; }
+  function route(){
+    var v=currentView();
+    document.getElementById('pageTitle').textContent=VIEWS[v];
+    document.querySelectorAll('#nav a').forEach(function(a){ a.classList.toggle('active',a.getAttribute('data-v')===v); });
+    closeSide();
+    ({inicio:renderInicio,calendario:renderCalendario,recursos:renderRecursos,videos:renderVideos,versiculos:renderVersiculos,comentarios:renderComentarios}[v])();
+    document.getElementById('content').scrollTop=0; window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',route);
+
+  var C=document.getElementById('content');
+
+  /* ---------- INICIO ---------- */
+  function renderInicio(){
+    var tiles=[
+      ['Organización','Calendario','Actividades y recordatorios del equipo.','calendario'],
+      ['Material','Recursos','Material en PDF para descargar.','recursos'],
+      ['Inspiración','Videos','Ideas creativas en video.','videos'],
+      ['Para el aula','Versículos','Láminas listas para imprimir.','versiculos'],
+      ['Equipo','Comentarios','El foro y los mensajes del equipo.','comentarios']
+    ];
+    C.innerHTML=''+
+      '<div class="hero"><span class="eyebrow">Escuela Bíblica</span>'+
+      '<h1 class="serif">Buen día, equipo</h1>'+
+      '<p>Todo lo que necesitás para organizar la escuela bíblica, en un solo lugar.</p></div>'+
+      '<div class="grid">'+tiles.map(function(t){
+        return '<button class="tile" data-go="'+t[3]+'"><span class="eyebrow">'+t[0]+'</span>'+
+          '<h3 class="serif">'+t[1]+'</h3><p>'+t[2]+'</p></button>';
+      }).join('')+'</div>';
+    C.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click',function(){ location.hash='#'+b.getAttribute('data-go'); }); });
+  }
+
+  /* ---------- CALENDARIO ---------- */
+  var calY=2026, calM=7;
+  function renderCalendario(){
+    var admin=isAdmin();
+    var head='<div class="page-head"><div><h1 class="serif">Calendario</h1><p>Actividades y recordatorios del equipo.</p></div>'+
+      (admin?'<button class="btn btn-solid" id="addEv">+ Nueva actividad</button>':'')+'</div>';
+    var events=get(K.events,[]);
+    var first=new Date(calY,calM,1), start=first.getDay(), days=new Date(calY,calM+1,0).getDate();
+    var today=new Date(); var isThisMonth=(today.getFullYear()===calY&&today.getMonth()===calM);
+    var cells=[]; for(var i=0;i<start;i++)cells.push(null);
+    for(var d=1;d<=days;d++)cells.push(d);
+    while(cells.length%7!==0)cells.push(null);
+    var rows='';
+    for(var r=0;r<cells.length;r+=7){
+      rows+='<tr>';
+      for(var c=0;c<7;c++){
+        var day=cells[r+c];
+        if(day===null){ rows+='<td class="off"></td>'; continue; }
+        var dayEv=events.filter(function(e){var x=new Date(e.date);return x.getFullYear()===calY&&x.getMonth()===calM&&x.getDate()===day;});
+        var evHtml=dayEv.map(function(e){return '<div class="ev '+(e.type==='g'?'g':e.type==='b'?'b':'')+'" data-ev="'+e.id+'" title="'+esc(e.title)+'">'+esc(e.title)+'</div>';}).join('');
+        rows+='<td class="'+(isThisMonth&&day===today.getDate()?'today':'')+'"><span class="dnum">'+day+'</span>'+evHtml+'</td>';
+      }
+      rows+='</tr>';
+    }
+    C.innerHTML=head+
+      '<div class="cal-nav"><button id="pm">‹</button><div class="m serif">'+MONTHS[calM]+' '+calY+'</div><button id="nm">›</button></div>'+
+      '<div class="cal-wrap"><table class="cal"><thead><tr>'+WD.map(function(w){return '<th>'+w.toUpperCase()+'</th>';}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>';
+    document.getElementById('pm').onclick=function(){calM--;if(calM<0){calM=11;calY--;}renderCalendario();};
+    document.getElementById('nm').onclick=function(){calM++;if(calM>11){calM=0;calY++;}renderCalendario();};
+    if(admin){ document.getElementById('addEv').onclick=function(){ evModal(); }; }
+    C.querySelectorAll('[data-ev]').forEach(function(el){ el.onclick=function(){ evModal(el.getAttribute('data-ev')); }; });
+  }
+  function evModal(id){
+    var events=get(K.events,[]); var ev=id?events.filter(function(e){return e.id===id;})[0]:null;
+    var admin=isAdmin();
+    if(ev && !admin){
+      openModal('<h3 class="serif">'+esc(ev.title)+'</h3><p style="color:var(--muted)">'+fmtDate(ev.date)+'</p>'+
+        '<div class="modal-acts"><button class="btn btn-ghost" onclick="BGM.closeModal()">Cerrar</button></div>');
+      return;
+    }
+    var dateVal=ev?ev.date.slice(0,10):new Date(calY,calM,Math.min(new Date().getDate(),28)).toISOString().slice(0,10);
+    openModal('<h3 class="serif">'+(ev?'Editar actividad':'Nueva actividad')+'</h3>'+
+      '<div class="field"><label>Título</label><input id="evTitle" value="'+(ev?esc(ev.title):'')+'" placeholder="Ej: Clase dominical"/></div>'+
+      '<div class="field"><label>Fecha</label><input type="date" id="evDate" value="'+dateVal+'"/></div>'+
+      '<div class="field"><label>Color</label><select id="evType"><option value="a">Terracota</option><option value="g">Verde</option><option value="b">Azul</option></select></div>'+
+      '<div class="modal-acts">'+(ev?'<button class="btn btn-danger" id="evDel">Borrar</button>':'')+
+      '<button class="btn btn-ghost" onclick="BGM.closeModal()">Cancelar</button>'+
+      '<button class="btn btn-solid" id="evSave">Guardar</button></div>');
+    if(ev) document.getElementById('evType').value=ev.type||'a';
+    document.getElementById('evSave').onclick=function(){
+      var t=document.getElementById('evTitle').value.trim(); if(!t){toast('Escribí un título');return;}
+      var dv=document.getElementById('evDate').value; var ty=document.getElementById('evType').value;
+      var arr=get(K.events,[]);
+      if(ev){ arr=arr.map(function(x){return x.id===ev.id?{id:x.id,title:t,date:new Date(dv+'T12:00').toISOString(),type:ty}:x;}); }
+      else{ arr.push({id:uid(),title:t,date:new Date(dv+'T12:00').toISOString(),type:ty}); }
+      set(K.events,arr); closeModal(); renderCalendario(); toast('Actividad guardada');
+    };
+    if(ev) document.getElementById('evDel').onclick=function(){ set(K.events,get(K.events,[]).filter(function(x){return x.id!==ev.id;})); closeModal(); renderCalendario(); toast('Actividad borrada'); };
+  }
+
+  /* ---------- RECURSOS ---------- */
+  function renderRecursos(){
+    var admin=isAdmin(); var items=get(K.resources,[]);
+    var head='<div class="page-head"><div><h1 class="serif">Recursos</h1><p>Material en PDF para descargar.</p></div>'+
+      (admin?'<button class="btn btn-solid" id="addR">+ Nuevo recurso</button>':'')+'</div>';
+    var body = items.length? '<div class="list">'+items.map(function(r){
+      return '<div class="row"><div class="ico"><svg viewBox="0 0 24 24"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v5h5"/></svg></div>'+
+        '<div class="meta"><b>'+esc(r.title)+'</b><span>'+esc(r.desc||'PDF')+'</span></div>'+
+        '<div class="acts">'+
+          (r.url?'<a class="btn btn-ghost btn-sm" href="'+esc(r.url)+'" target="_blank" rel="noopener">Abrir</a>':'<button class="btn btn-ghost btn-sm" data-dl="'+r.id+'">Descargar</button>')+
+          (admin?'<button class="btn btn-danger btn-sm" data-del="'+r.id+'">Borrar</button>':'')+
+        '</div></div>';
+    }).join('')+'</div>' : '<div class="empty">Todavía no hay recursos cargados.</div>';
+    C.innerHTML=head+body;
+    if(admin){ document.getElementById('addR').onclick=function(){ resModal(); }; }
+    C.querySelectorAll('[data-del]').forEach(function(b){ b.onclick=function(){ set(K.resources,get(K.resources,[]).filter(function(x){return x.id!==b.getAttribute('data-del');})); renderRecursos(); toast('Recurso borrado'); }; });
+    C.querySelectorAll('[data-dl]').forEach(function(b){ b.onclick=function(){ toast('Este es un recurso de ejemplo'); }; });
+  }
+  function resModal(){
+    openModal('<h3 class="serif">Nuevo recurso</h3>'+
+      '<div class="field"><label>Título</label><input id="rT" placeholder="Ej: Guía de la clase"/></div>'+
+      '<div class="field"><label>Descripción</label><input id="rD" placeholder="PDF · 12 páginas"/></div>'+
+      '<div class="field"><label>Enlace (opcional)</label><input id="rU" placeholder="https://..."/></div>'+
+      '<div class="modal-acts"><button class="btn btn-ghost" onclick="BGM.closeModal()">Cancelar</button><button class="btn btn-solid" id="rSave">Guardar</button></div>');
+    document.getElementById('rSave').onclick=function(){
+      var t=document.getElementById('rT').value.trim(); if(!t){toast('Escribí un título');return;}
+      var arr=get(K.resources,[]); arr.unshift({id:uid(),title:t,desc:document.getElementById('rD').value.trim()||'PDF',url:document.getElementById('rU').value.trim()});
+      set(K.resources,arr); closeModal(); renderRecursos(); toast('Recurso agregado');
+    };
+  }
+
+  /* ---------- VIDEOS ---------- */
+  function ytId(url){ var m=String(url||'').match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/); return m?m[1]:''; }
+  function renderVideos(){
+    var admin=isAdmin(); var items=get(K.videos,[]);
+    var head='<div class="page-head"><div><h1 class="serif">Videos</h1><p>Ideas creativas en video.</p></div>'+
+      (admin?'<button class="btn btn-solid" id="addV">+ Nuevo video</button>':'')+'</div>';
+    var body = items.length? '<div class="vgrid">'+items.map(function(v){
+      var id=v.yt||ytId(v.url);
+      var thumb=id?'<img src="https://img.youtube.com/vi/'+id+'/hqdefault.jpg" alt=""/>':'';
+      return '<div class="vcard"><div class="vthumb" '+(v.url?'data-open="'+esc(v.url)+'"':'')+' style="cursor:'+(v.url?'pointer':'default')+'">'+thumb+
+        '<div class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div></div>'+
+        '<div class="vbody"><b>'+esc(v.title)+'</b><span>'+esc(v.desc||'')+'</span>'+
+        '<div class="acts">'+(v.url?'<a class="btn btn-ghost btn-sm" href="'+esc(v.url)+'" target="_blank" rel="noopener">Ver</a>':'')+
+        (admin?'<button class="btn btn-danger btn-sm" data-del="'+v.id+'">Borrar</button>':'')+'</div></div></div>';
+    }).join('')+'</div>' : '<div class="empty">Todavía no hay videos cargados.</div>';
+    C.innerHTML=head+body;
+    if(admin){ document.getElementById('addV').onclick=function(){ vidModal(); }; }
+    C.querySelectorAll('[data-del]').forEach(function(b){ b.onclick=function(){ set(K.videos,get(K.videos,[]).filter(function(x){return x.id!==b.getAttribute('data-del');})); renderVideos(); toast('Video borrado'); }; });
+    C.querySelectorAll('[data-open]').forEach(function(b){ b.onclick=function(){ window.open(b.getAttribute('data-open'),'_blank','noopener'); }; });
+  }
+  function vidModal(){
+    openModal('<h3 class="serif">Nuevo video</h3>'+
+      '<div class="field"><label>Título</label><input id="vT" placeholder="Ej: Manualidad del arca"/></div>'+
+      '<div class="field"><label>Descripción</label><input id="vD" placeholder="Idea creativa · 5 min"/></div>'+
+      '<div class="field"><label>Enlace de YouTube</label><input id="vU" placeholder="https://youtube.com/watch?v=..."/></div>'+
+      '<div class="modal-acts"><button class="btn btn-ghost" onclick="BGM.closeModal()">Cancelar</button><button class="btn btn-solid" id="vSave">Guardar</button></div>');
+    document.getElementById('vSave').onclick=function(){
+      var t=document.getElementById('vT').value.trim(); if(!t){toast('Escribí un título');return;}
+      var u=document.getElementById('vU').value.trim();
+      var arr=get(K.videos,[]); arr.unshift({id:uid(),title:t,desc:document.getElementById('vD').value.trim(),url:u,yt:ytId(u)});
+      set(K.videos,arr); closeModal(); renderVideos(); toast('Video agregado');
+    };
+  }
+
+  /* ---------- VERSÍCULOS ---------- */
+  var THEMES=[['v-dark','Oscuro'],['v-rust','Tierra'],['v-cream','Crema'],['v-sage','Verde'],['v-sky','Azul'],['v-plum','Lila']];
+  function renderVersiculos(){
+    var admin=isAdmin(); var items=get(K.verses,[]);
+    var head='<div class="page-head"><div><h1 class="serif">Versículos</h1><p>Láminas listas para imprimir para el aula.</p></div>'+
+      (admin?'<button class="btn btn-solid" id="addV">+ Crear lámina</button>':'')+'</div>';
+    var body = items.length? '<div class="verse-grid">'+items.map(function(v){
+      return '<div class="verse"><div class="art '+esc(v.theme||'v-cream')+'">'+
+        '<div class="icon">✦</div><div class="ref">'+esc(v.ref)+'</div><div class="txt serif">'+esc(v.txt)+'</div></div>'+
+        '<div class="acts"><button class="btn btn-ghost btn-sm" data-print="'+v.id+'">Imprimir</button>'+
+        (admin?'<button class="btn btn-danger btn-sm" data-del="'+v.id+'">Borrar</button>':'')+'</div></div>';
+    }).join('')+'</div>' : '<div class="empty">Todavía no hay láminas creadas.</div>';
+    C.innerHTML=head+body;
+    if(admin){ document.getElementById('addV').onclick=function(){ verseModal(); }; }
+    C.querySelectorAll('[data-del]').forEach(function(b){ b.onclick=function(){ set(K.verses,get(K.verses,[]).filter(function(x){return x.id!==b.getAttribute('data-del');})); renderVersiculos(); toast('Lámina borrada'); }; });
+    C.querySelectorAll('[data-print]').forEach(function(b){ b.onclick=function(){ printVerse(b.getAttribute('data-print')); }; });
+  }
+  function verseModal(){
+    openModal('<h3 class="serif">Crear lámina</h3>'+
+      '<div class="field"><label>Referencia</label><input id="vRef" placeholder="Ej: Juan 3:16"/></div>'+
+      '<div class="field"><label>Texto del versículo</label><textarea id="vTxt" placeholder="Escribí el versículo..."></textarea></div>'+
+      '<div class="field"><label>Estilo</label><select id="vTheme">'+THEMES.map(function(t){return '<option value="'+t[0]+'">'+t[1]+'</option>';}).join('')+'</select></div>'+
+      '<div class="modal-acts"><button class="btn btn-ghost" onclick="BGM.closeModal()">Cancelar</button><button class="btn btn-solid" id="vSave">Guardar</button></div>');
+    document.getElementById('vSave').onclick=function(){
+      var r=document.getElementById('vRef').value.trim(), t=document.getElementById('vTxt').value.trim();
+      if(!r||!t){toast('Completá referencia y texto');return;}
+      var arr=get(K.verses,[]); arr.unshift({id:uid(),ref:r,txt:t,theme:document.getElementById('vTheme').value});
+      set(K.verses,arr); closeModal(); renderVersiculos(); toast('Lámina creada');
+    };
+  }
+  function printVerse(id){
+    var v=get(K.verses,[]).filter(function(x){return x.id===id;})[0]; if(!v)return;
+    var w=window.open('','_blank'); if(!w){toast('Permití las ventanas emergentes para imprimir');return;}
+    var colors={ 'v-dark':['#302b25','#f3ece0'],'v-rust':['#6f4a24','#f6ead9'],'v-cream':['#efe7d7','#4a4335'],'v-sage':['#e4e9db','#414a34'],'v-sky':['#dfe7ec','#3a4c58'],'v-plum':['#e7dde4','#4f3f4c'] };
+    var col=colors[v.theme]||colors['v-cream'];
+    w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>'+esc(v.ref)+'</title>'+
+      '<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&display=swap" rel="stylesheet">'+
+      '<style>@page{margin:0}body{margin:0;font-family:Fraunces,Georgia,serif;display:flex;align-items:center;justify-content:center;height:100vh}'+
+      '.p{width:100%;height:100vh;background:'+col[0]+';color:'+col[1]+';display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:40px;padding:8%}'+
+      '.ref{font-size:20px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}.txt{font-size:52px;line-height:1.35;max-width:80%}.ic{font-size:44px;opacity:.7}</style></head>'+
+      '<body><div class="p"><div class="ic">✦</div><div class="ref">'+esc(v.ref)+'</div><div class="txt">'+esc(v.txt)+'</div></div>'+
+      '<script>window.onload=function(){setTimeout(function(){window.print();},400);}<\/script></body></html>');
+    w.document.close();
+  }
+
+  /* ---------- COMENTARIOS ---------- */
+  var comTab='muro';
+  function renderComentarios(){
+    C.innerHTML='<div class="page-head"><div><h1 class="serif">Comentarios</h1><p>El foro y los mensajes del equipo.</p></div></div>'+
+      '<div class="tabs" id="comTabs"><button data-t="muro" class="'+(comTab==='muro'?'on':'')+'">Muro del equipo</button>'+
+      '<button data-t="mensajes" class="'+(comTab==='mensajes'?'on':'')+'">Mensajes</button></div>'+
+      '<div id="comBody"></div>';
+    C.querySelectorAll('#comTabs button').forEach(function(b){ b.onclick=function(){ comTab=b.getAttribute('data-t'); renderComentarios(); }; });
+    comTab==='muro'?renderMuro():renderMensajes();
+  }
+  function renderMuro(){
+    var who=isAdmin()?'Coordinación BGM':'Equipo de maestros';
+    var posts=get(K.posts,[]).slice().sort(function(a,b){return b.ts-a.ts;});
+    var html='<div class="composer"><textarea id="pcTxt" placeholder="Compartí algo con el equipo..."></textarea><button class="btn btn-solid" id="pcSend">Publicar</button></div>';
+    html+= posts.length? posts.map(function(p){
+      var canDel=isAdmin()||p.author===who;
+      return '<div class="post"><div class="ph"><div class="avatar">'+esc(p.author.charAt(0))+'</div><div><b>'+esc(p.author)+'</b><span> · '+ago(p.ts)+'</span></div>'+
+        (canDel?'<button class="btn btn-danger btn-sm del" data-del="'+p.id+'">Borrar</button>':'')+'</div>'+
+        '<div class="body">'+esc(p.body)+'</div></div>';
+    }).join('') : '<div class="empty">Sé el primero en escribir en el muro.</div>';
+    document.getElementById('comBody').innerHTML=html;
+    document.getElementById('pcSend').onclick=function(){
+      var t=document.getElementById('pcTxt').value.trim(); if(!t){toast('Escribí algo');return;}
+      var arr=get(K.posts,[]); arr.push({id:uid(),author:who,body:t,ts:Date.now()}); set(K.posts,arr); renderMuro(); toast('Publicado');
+    };
+    document.querySelectorAll('#comBody [data-del]').forEach(function(b){ b.onclick=function(){ set(K.posts,get(K.posts,[]).filter(function(x){return x.id!==b.getAttribute('data-del');})); renderMuro(); toast('Borrado'); }; });
+  }
+  function renderMensajes(){
+    var who=isAdmin()?'Coordinación BGM':'Equipo de maestros';
+    var msgs=get(K.msgs,[]).slice().sort(function(a,b){return a.ts-b.ts;});
+    var html='<div class="msg-list" id="ml">'+ (msgs.length? msgs.map(function(m){
+      return '<div class="msg"><div class="avatar">'+esc(m.author.charAt(0))+'</div><div class="mb"><b>'+esc(m.author)+'</b> <span>'+ago(m.ts)+'</span><p>'+esc(m.body)+'</p></div></div>';
+    }).join('') : '<div class="empty">No hay mensajes todavía.</div>')+'</div>'+
+      '<div class="composer" style="margin-top:18px"><textarea id="mTxt" placeholder="Escribí un mensaje al equipo..."></textarea><button class="btn btn-solid" id="mSend">Enviar</button></div>';
+    document.getElementById('comBody').innerHTML=html;
+    document.getElementById('mSend').onclick=function(){
+      var t=document.getElementById('mTxt').value.trim(); if(!t){toast('Escribí un mensaje');return;}
+      var arr=get(K.msgs,[]); arr.push({id:uid(),author:who,body:t,ts:Date.now()}); set(K.msgs,arr); renderMensajes(); toast('Enviado');
+    };
+  }
+
+  /* ---------- Boot ---------- */
+  seed();
+  if(isAuthed()){ enterApp(); } else { showLogin(); }
+})();
+</script>
+</body>
+</html>
